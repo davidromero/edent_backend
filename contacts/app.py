@@ -19,6 +19,26 @@ def get_all_contacts():
     return custom_responses.get_active_contacts(active_contact_list)
 
 
+@app.route('/contacts/{uid}', methods=['GET'])
+def get_contact(uid):
+    response = get_app_db().get_item(uid)
+    return custom_responses.get_response(response, uid)
+
+
+@app.route('/contacts', methods=['POST'])
+def add_new_contact():
+    body = app.current_request.json_body
+    new_item_id = get_app_db().add_item(contact=body)
+    return custom_responses.post_response(new_item_id)
+
+
+@app.route('/contacts/{uid}', methods=['DELETE'])
+def delete_contact(uid):
+    response = get_app_db().inactivate_item(uid)
+    return custom_responses.edit_response(response, uid)
+
+
+
 
 
 

@@ -2,6 +2,7 @@ import datetime
 from uuid import uuid4
 
 from boto3.dynamodb.conditions import Attr
+from chalicelib.validation import validate_contact_fields, all_fields, validate_update
 
 # from chalicelib.validation import validate_contact_fields, all_fields, validate_update
 
@@ -38,15 +39,15 @@ class DynamoDBContacts(ContactsDB):
         response = self._table.scan(FilterExpression=Attr('active').eq(True))
         return response['Items']
 
-    # def add_item(self, contact, username=DEFAULT_USERNAME):
-    #     new_contact = make_contact(contact, username)
-    #     if validate_contact_fields(new_contact):
-    #         self._table.put_item(
-    #             Item=new_contact
-    #         )
-    #         return new_contact.get('uid')
-    #     else:
-    #         return None
+    def add_item(self, contact, username=DEFAULT_USERNAME):
+        new_contact = make_contact(contact, username)
+        if validate_contact_fields(new_contact):
+            self._table.put_item(
+                Item=new_contact
+            )
+            return new_contact.get('uid')
+        else:
+            return None
 
     def get_item(self, uid, username=DEFAULT_USERNAME):
         response = self._table.get_item(
@@ -59,7 +60,7 @@ class DynamoDBContacts(ContactsDB):
     def inactivate_item(self, uid, username=DEFAULT_USERNAME):
         item = self.get_item(uid, username)
         if item is not None:
-            item['state'] = 'inactive'
+            item['active'] = False
             response = self._table.put_item(Item=item)
             return response['ResponseMetadata']
         else:
@@ -85,21 +86,21 @@ class DynamoDBContacts(ContactsDB):
     #         return 400
 
 
-# def make_contact(contact, username):
-#     uid = str(uuid4())
-#     now = datetime.datetime.now().isoformat()
-#     new_contact = {
-#         'uid': uid,
-#         'state': 'active',
-#         'created_by': username,
-#         'modified_by': username,
-#         'created_timestamp': now,
-#         'modified_timestamp': now,
-#     }
-#     for key in all_fields:
-#         value = contact.get(key, EMPTY_FIELD)
-#         if isinstance(value, list):
-#             new_contact[key] = value
-#         else:
-#             new_contact[key] = value.lower()
-#     return new_contact
+def make_contact(contact, username):
+    uid = str(uuid4())
+    now = datetime.datetime.now().isoformat()
+    new_contact = {
+        'uid': uid[:13],
+        'active': True,
+        'created_by': username,
+        'modified_by': username,
+        'created_timestamp': now,
+        'modified_timestamp': now,
+    }
+    for key in all_fields:
+        value = contact.get(key, EMPTY_FIELD)
+        if isinstance(value, list):
+            new_contact[key] = value
+        else:
+            new_contact[key] = value.lower()
+    return new_contact
