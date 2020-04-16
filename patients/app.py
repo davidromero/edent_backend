@@ -1,11 +1,12 @@
 from chalice import Chalice
+from chalicelib import custom_responses
 
 app = Chalice(app_name='patients')
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
-    return {'hello': 'world'}
+    return custom_responses.get_base_res()
 
 
 # The view function above will return {"hello": "world"}
