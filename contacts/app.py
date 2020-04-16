@@ -38,8 +38,11 @@ def delete_contact(uid):
     return custom_responses.edit_response(response, uid)
 
 
-
-
+@app.route('/contacts/{uid}', methods=['PUT'])
+def update_contact(uid):
+    body = app.current_request.json_body
+    response = get_app_db().update_item(uid, body)
+    return custom_responses.edit_response(response, uid)
 
 
 def get_app_db():

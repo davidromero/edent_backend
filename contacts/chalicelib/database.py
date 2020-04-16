@@ -66,24 +66,24 @@ class DynamoDBContacts(ContactsDB):
         else:
             return 404
 
-    # def update_item(self, uid, body, username=DEFAULT_USERNAME):
-    #     if validate_update(body):
-    #         item = self.get_item(uid, username)
-    #         if item is not None:
-    #             for key in body.keys():
-    #                 item[key] = body[key]
-    #             if validate_contact_fields(item):
-    #                 now = datetime.datetime.now().isoformat()
-    #                 item['modified_by'] = username
-    #                 item['modified_timestamp'] = now
-    #                 response = self._table.put_item(Item=item)
-    #                 return response['ResponseMetadata']
-    #             else:
-    #                 return 400
-    #         else:
-    #             return 404
-    #     else:
-    #         return 400
+    def update_item(self, uid, body, username=DEFAULT_USERNAME):
+        if validate_update(body):
+            item = self.get_item(uid, username)
+            if item is not None:
+                for key in body.keys():
+                    item[key] = body[key]
+                if validate_contact_fields(item):
+                    now = datetime.datetime.now().isoformat()
+                    item['modified_by'] = username
+                    item['modified_timestamp'] = now
+                    response = self._table.put_item(Item=item)
+                    return response['ResponseMetadata']
+                else:
+                    return 400
+            else:
+                return 404
+        else:
+            return 400
 
 
 def make_contact(contact, username):

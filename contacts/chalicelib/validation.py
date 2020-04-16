@@ -1,5 +1,4 @@
 import re
-import datetime
 
 mandatory_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'phone_number']
 available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala', 'other']
@@ -69,15 +68,3 @@ def validate_phone_number(phone_number):
     if phone_number.isdigit() and len(phone_number) == 8:
         return True
     return False
-
-
-def validate_birthday(date_time_str):
-    try:
-        birthday_date = datetime.datetime.strptime(date_time_str, '%m/%d/%Y')
-    except ValueError:
-        return False
-    today = datetime.datetime.now()
-    age = (today - birthday_date).days / 365
-    if age < 1 or age > 100:
-        return False
-    return True
