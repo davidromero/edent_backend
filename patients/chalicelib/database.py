@@ -1,4 +1,5 @@
 import datetime
+import json
 from uuid import uuid4
 
 import requests
@@ -101,8 +102,9 @@ def make_contact(patient, username, uid):
         'phone_number': patient['phone_number']
     }
     print(new_contact)
-    res = requests.post('http://localhost:8000/contacts',
-                      data = new_contact)
+    res = requests.post('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts',
+                      data = json.dumps(new_contact), headers={'Content-type':'application/json', 'Accept':'application/json'})
+    print(res.text)
     if res.status_code is not 201:
         return None
     else:
