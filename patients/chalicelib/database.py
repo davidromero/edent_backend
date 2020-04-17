@@ -1,19 +1,20 @@
 import datetime
 from uuid import uuid4
 
+import requests
 from boto3.dynamodb.conditions import Attr
-from chalicelib.validation import validate_contact_fields, all_fields, validate_update
+from chalicelib.validation import validate_patient_fields, all_fields, validate_update
 
 
 DEFAULT_USERNAME = 'local'
 EMPTY_FIELD = '-'
 
 
-class ContactsDB(object):
+class PatientsDB(object):
     def list_items(self, username):
         pass
 
-    def add_item(self, contact, username):
+    def add_item(self, patient, username):
         pass
 
     def get_item(self, uid, username):
@@ -26,7 +27,7 @@ class ContactsDB(object):
         pass
 
 
-class DynamoDBContacts(ContactsDB):
+class DynamoDBPatients(PatientsDB):
     def __init__(self, table_resource):
         self._table = table_resource
 
@@ -38,15 +39,19 @@ class DynamoDBContacts(ContactsDB):
         response = self._table.scan(FilterExpression=Attr('active').eq(True))
         return response['Items']
 
-    def add_item(self, contact, username=DEFAULT_USERNAME):
-        new_contact = make_contact(contact, username)
-        if validate_contact_fields(new_contact):
-            self._table.put_item(
-                Item=new_contact
-            )
-            return new_contact.get('uid')
+    def add_item(self, patient, username=DEFAULT_USERNAME):
+        uid = str(uuid4())[:13]
+        new_contact = make_contact(patient, username, uid)
+        new_patient = make_patient(patient, username, uid)
+        if new_contact is not None:
+            if validate_patient_fields(new_patient):
+                self._table.put_item(
+                    Item=new_patient
+                )
+                return new_patient.get('uid')
         else:
-            return None
+            print('Contact is none')
+        return None
 
     def get_item(self, uid, username=DEFAULT_USERNAME):
         response = self._table.get_item(
@@ -71,7 +76,7 @@ class DynamoDBContacts(ContactsDB):
             if item is not None:
                 for key in body.keys():
                     item[key] = body[key]
-                if validate_contact_fields(item):
+                if validate_patient_fields(item):
                     now = datetime.datetime.now().isoformat()
                     item['modified_by'] = username
                     item['modified_timestamp'] = now
@@ -83,23 +88,42 @@ class DynamoDBContacts(ContactsDB):
                 return 404
         else:
             return 400
+        
 
-
-def make_contact(contact, username):
-    uid = str(uuid4())
-    now = datetime.datetime.now().isoformat()
+def make_contact(patient, username, uid):
     new_contact = {
-        'uid': uid[:13],
+        'patient_uid': uid,
+        'first_name': patient['first_name'],
+        'last_name': patient['last_name'],
+        'clinic_location': patient['clinic_location'],
+        'address': patient['address'],
+        'email': patient['email'],
+        'phone_number': patient['phone_number']
+    }
+    print(new_contact)
+    res = requests.post('http://localhost:8000/contacts',
+                      data = new_contact)
+    if res.status_code is not 201:
+        return None
+    else:
+        return res.json()
+
+
+def make_patient(patient, username, uid):
+    now = datetime.datetime.now().isoformat()
+    new_patient = {
+        'uid': uid,
         'active': True,
         'created_by': username,
         'modified_by': username,
         'created_timestamp': now,
         'modified_timestamp': now,
+        'contact_uid': uid,
     }
     for key in all_fields:
-        value = contact.get(key, EMPTY_FIELD)
+        value = patient.get(key, EMPTY_FIELD)
         if isinstance(value, list):
-            new_contact[key] = value
+            new_patient[key] = value
         else:
-            new_contact[key] = value.lower()
-    return new_contact
+            new_patient[key] = value.lower()
+    return new_patient

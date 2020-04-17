@@ -1,13 +1,13 @@
 from chalice import Response
 
 
-def get_active_contacts(contact_list):
-    if contact_list is not None:
+def get_active_patients(patient_list):
+    if patient_list is not None:
         return Response(
             status_code=200,
             body={
                 'status': 200,
-                'payload': contact_list
+                'payload': patient_list
             },
             headers={
                 'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ def post_fail():
         status_code=400,
         body={
             'status': 400,
-            'payload': 'Contact could not be inserted.'
+            'payload': 'Patient could not be inserted.'
         },
         headers={
             'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ def not_found(uid):
 def get_base_res():
     return Response(
         status_code=200,
-        body={'status': 200, 'payload': 'eDent patients service running...'},
+        body={'status': 200, 'payload': 'eDent contacts service running...'},
         headers={
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': 'http://localhost:3000'

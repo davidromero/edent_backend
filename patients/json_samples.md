@@ -4,9 +4,13 @@
 {
     "first_name": "first name",
     "last_name": "last name",
-    "clinic_location": "location",
+    "clinic_location": "clinic_location",
     "birthday": "YYYY-MM-DD",
-    "contact_uid": "uid"
+    "sex": "sex",
+    "visit_reason": "visit_reason",
+    "address": "address",
+    "email": "example@mail.com",
+    "phone_number": "########"
 }
 ```
 

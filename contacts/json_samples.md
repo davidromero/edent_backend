@@ -2,13 +2,13 @@
 
 ```json
 {
+    "patient_uid": "uid",
     "first_name": "first name",
     "last_name": "last name",
-    "clinic_location": "location",
+    "clinic_location": "clinic_location",
     "address": "address",
     "email": "example@mail.com",
-    "phone_number": "########",
-    "patient_uid": "uid"
+    "phone_number": "########"
 }
 ```
 

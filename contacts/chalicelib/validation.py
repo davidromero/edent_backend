@@ -1,7 +1,7 @@
 import re
 
 mandatory_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'phone_number']
-available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala', 'other']
+available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp', 'active']
 all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'address', 'email', 'phone_number']
 
