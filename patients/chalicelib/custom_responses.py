@@ -11,7 +11,7 @@ def get_active_patients(patient_list):
             },
             headers={
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://localhost:3000'
+                'Access-Control-Allow-Origin': '*'
             }
         )
     else:
@@ -34,7 +34,7 @@ def get_success(response):
         },
         headers={
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://localhost:3000'
+            'Access-Control-Allow-Origin': '*'
         }
     )
 
@@ -55,7 +55,7 @@ def post_success(uid):
         },
         headers={
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://localhost:3000'
+            'Access-Control-Allow-Origin': '*'
         }
     )
 
@@ -69,7 +69,7 @@ def post_fail():
         },
         headers={
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://localhost:3000'
+            'Access-Control-Allow-Origin': '*'
         }
     )
 
@@ -96,7 +96,7 @@ def edit_success(uid):
         },
         headers={
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://localhost:3000'
+            'Access-Control-Allow-Origin': '*'
         }
     )
 
@@ -111,7 +111,7 @@ def edit_fail(uid):
         },
         headers={
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://localhost:3000'
+            'Access-Control-Allow-Origin': '*'
         }
     )
 
@@ -126,7 +126,7 @@ def not_found(uid):
         },
         headers={
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://localhost:3000'
+            'Access-Control-Allow-Origin': '*'
         }
     )
 
@@ -137,6 +137,6 @@ def get_base_res():
         body={'status': 200, 'payload': 'eDent contacts service running...'},
         headers={
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://localhost:3000'
+            'Access-Control-Allow-Origin': '*'
         }
     )

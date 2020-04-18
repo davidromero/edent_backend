@@ -1,4 +1,5 @@
 import datetime
+import pytz
 from uuid import uuid4
 
 from boto3.dynamodb.conditions import Attr
@@ -87,7 +88,7 @@ class DynamoDBContacts(ContactsDB):
 
 def make_contact(contact, username):
     uid = str(uuid4())
-    now = datetime.datetime.now().isoformat()
+    now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
     new_contact = {
         'uid': uid[:13],
         'active': True,
