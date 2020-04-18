@@ -104,6 +104,7 @@ def make_contact(patient, username, uid):
         'email': patient['email'],
         'phone_number': patient['phone_number']
     }
+    print('Creating contact: ' + json.dumps(new_contact))
     res = requests.post('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts',
                         data=json.dumps(new_contact),
                         headers={'Content-type': 'application/json', 'Accept': 'application/json'})

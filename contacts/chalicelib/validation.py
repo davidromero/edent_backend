@@ -29,7 +29,7 @@ def validate_mandatory_fields(contact):
 
 
 def validate_optional_fields(contact):
-    if 'email' in contact.keys() and not validate_email(contact['email']):
+    if 'email' in contact.keys() and not '-' and not validate_email(contact['email']):
         return False
     if 'address' in contact.keys() and not '-':
         return False
@@ -46,9 +46,11 @@ def validate_update(body):
 def has_mandatory_fields(contact):
     for mandatory_key in mandatory_fields:
         if mandatory_key not in contact.keys():
+            print('Mandatory field missing: ' + mandatory_key)
             return False
         mandatory_value = contact[mandatory_key].strip()
         if mandatory_value is '' or None:
+            print('Mandatory field is blank: ' + mandatory_key)
             return False
     return True
 

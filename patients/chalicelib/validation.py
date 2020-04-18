@@ -45,11 +45,11 @@ def validate_update(body):
 def has_mandatory_fields(patient):
     for mandatory_key in mandatory_fields:
         if mandatory_key not in patient.keys():
-            print('Mandatory field missing')
+            print('Mandatory field missing: ' + mandatory_key)
             return False
         mandatory_value = patient[mandatory_key].strip()
         if mandatory_value is '' or None:
-            print('Mandatory field is blank')
+            print('Mandatory field is blank: ' + mandatory_key)
             return False
     return True
 
