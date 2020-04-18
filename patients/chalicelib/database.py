@@ -129,6 +129,8 @@ def make_patient(patient, username, uid):
         value = patient.get(key, EMPTY_FIELD)
         if isinstance(value, list):
             new_patient[key] = value
+        elif value is '':
+            new_patient[key] = '-'
         else:
             new_patient[key] = value.lower()
     return new_patient

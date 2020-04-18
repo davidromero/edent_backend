@@ -1,4 +1,6 @@
 import datetime
+import json
+
 import pytz
 from uuid import uuid4
 
@@ -42,6 +44,7 @@ class DynamoDBContacts(ContactsDB):
     def add_item(self, contact, username=DEFAULT_USERNAME):
         new_contact = make_contact(contact, username)
         if validate_contact_fields(new_contact):
+            print("Inserting: " + json.dumps(new_contact))
             self._table.put_item(
                 Item=new_contact
             )
@@ -101,6 +104,9 @@ def make_contact(contact, username):
         value = contact.get(key, EMPTY_FIELD)
         if isinstance(value, list):
             new_contact[key] = value
+        elif value is '':
+            new_contact[key] = '-'
         else:
             new_contact[key] = value.lower()
+    print("Making: " + json.dumps(new_contact))
     return new_contact

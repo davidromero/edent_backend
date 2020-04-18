@@ -1,6 +1,6 @@
 import re
 
-mandatory_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'phone_number']
+mandatory_fields = ['first_name', 'last_name', 'clinic_location', 'phone_number']
 available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp', 'active']
 all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'address', 'email', 'phone_number']
@@ -29,9 +29,8 @@ def validate_mandatory_fields(contact):
 
 
 def validate_optional_fields(contact):
-    if 'email' in contact.keys() and not '-' and not validate_email(contact['email']):
-        return False
-    if 'address' in contact.keys() and not '-':
+    if 'email' in contact.keys() and not validate_email(contact['email']):
+        print("Invalid email")
         return False
     return True
 
@@ -56,7 +55,7 @@ def has_mandatory_fields(contact):
 
 
 def validate_email(email):
-    if email == '-':
+    if email is '-':
         return True
     if re.match(r'^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email, re.IGNORECASE):
         return True
@@ -64,8 +63,6 @@ def validate_email(email):
 
 
 def validate_phone_number(phone_number):
-    if phone_number == '-':
-        return True
     phone_number = str(phone_number).strip(' ')
     if phone_number.isdigit() and len(phone_number) == 8:
         return True
