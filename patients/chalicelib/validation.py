@@ -56,7 +56,7 @@ def has_mandatory_fields(patient):
 
 def validate_birthday(date_time_str):
     try:
-        birthday_date = datetime.datetime.strptime(date_time_str, '%m/%d/%Y')
+        birthday_date = datetime.datetime.strptime(date_time_str, '%Y-%m-%d')
     except ValueError:
         print('Invalid birthday format')
         return False

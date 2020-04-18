@@ -7,7 +7,6 @@ import requests
 from boto3.dynamodb.conditions import Attr
 from chalicelib.validation import validate_patient_fields, all_fields, validate_update
 
-
 DEFAULT_USERNAME = 'local'
 EMPTY_FIELD = '-'
 
@@ -43,17 +42,20 @@ class DynamoDBPatients(PatientsDB):
 
     def add_item(self, patient, username=DEFAULT_USERNAME):
         uid = str(uuid4())[:13]
-        new_contact = make_contact(patient, username, uid)
         new_patient = make_patient(patient, username, uid)
-        if new_contact is not None:
-            if validate_patient_fields(new_patient):
+
+        if validate_patient_fields(new_patient):
+            new_contact = make_contact(patient, username, uid)
+            if new_contact is not None:
                 self._table.put_item(
                     Item=new_patient
                 )
                 return new_patient.get('uid')
+            else:
+                print('Contact is none')
+                return None
         else:
-            print('Contact is none')
-        return None
+            return None
 
     def get_item(self, uid, username=DEFAULT_USERNAME):
         response = self._table.get_item(
@@ -90,7 +92,7 @@ class DynamoDBPatients(PatientsDB):
                 return 404
         else:
             return 400
-        
+
 
 def make_contact(patient, username, uid):
     new_contact = {
@@ -102,12 +104,13 @@ def make_contact(patient, username, uid):
         'email': patient['email'],
         'phone_number': patient['phone_number']
     }
-    res = requests.post('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts',data=json.dumps(new_contact),
-                        headers={'Content-type':'application/json', 'Accept':'application/json'})
-    if res.status_code is not 201:
-        return None
-    else:
+    res = requests.post('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts',
+                        data=json.dumps(new_contact),
+                        headers={'Content-type': 'application/json', 'Accept': 'application/json'})
+    if res.status_code is 201:
         return res.json()
+    else:
+        return None
 
 
 def make_patient(patient, username, uid):
