@@ -119,7 +119,7 @@ def make_contact(patient, username, uid):
 
 def inactivate_contact(uid):
     res = requests.delete('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts/' + uid)
-    if res.status_code is 200:
+    if res.status_code is 204:
         return res.json()
     else:
         return None

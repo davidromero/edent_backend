@@ -61,7 +61,8 @@ class DynamoDBContacts(ContactsDB):
         return None
 
     def inactivate_item(self, uid, username=DEFAULT_USERNAME):
-        item = self.get_item(uid, username)
+        items = self._table.scan(FilterExpression=Attr('patient_uid').eq(uid))['Items']
+        item = items[0]
         if item is not None:
             item['active'] = False
             response = self._table.put_item(Item=item)
