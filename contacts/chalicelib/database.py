@@ -74,7 +74,7 @@ class DynamoDBContacts(ContactsDB):
             item = self.get_item(uid, username)
             if item is not None:
                 for key in body.keys():
-                    item[key] = body[key]
+                    item[key] = body[key].lower().strip()
                 if validate_contact_fields(item):
                     now = datetime.datetime.now().isoformat()
                     item['modified_by'] = username
@@ -107,6 +107,6 @@ def make_contact(contact, username):
         elif value is '':
             new_contact[key] = '-'
         else:
-            new_contact[key] = value.lower()
+            new_contact[key] = value.lower().strip()
     print("Making: " + json.dumps(new_contact))
     return new_contact

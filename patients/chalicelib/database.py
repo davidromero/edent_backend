@@ -43,7 +43,6 @@ class DynamoDBPatients(PatientsDB):
     def add_item(self, patient, username=DEFAULT_USERNAME):
         uid = str(uuid4())[:13]
         new_patient = make_patient(patient, username, uid)
-
         if validate_patient_fields(new_patient):
             new_contact = make_contact(patient, username, uid)
             if new_contact is not None:
@@ -68,9 +67,13 @@ class DynamoDBPatients(PatientsDB):
     def inactivate_item(self, uid, username=DEFAULT_USERNAME):
         item = self.get_item(uid, username)
         if item is not None:
-            item['active'] = False
-            response = self._table.put_item(Item=item)
-            return response['ResponseMetadata']
+            res = inactivate_contact(item['contact_uid'])
+            if res is not None:
+                item['active'] = False
+                response = self._table.put_item(Item=item)
+                return response['ResponseMetadata']
+            else:
+                return 400
         else:
             return 404
 
@@ -79,7 +82,7 @@ class DynamoDBPatients(PatientsDB):
             item = self.get_item(uid, username)
             if item is not None:
                 for key in body.keys():
-                    item[key] = body[key]
+                    item[key] = body[key].lower().strip()
                 if validate_patient_fields(item):
                     now = datetime.datetime.now().isoformat()
                     item['modified_by'] = username
@@ -114,6 +117,15 @@ def make_contact(patient, username, uid):
         return None
 
 
+def inactivate_contact(uid):
+    res = requests.delete('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts/' + uid)
+    if res.status_code is 200:
+        return res.json()
+    else:
+        return None
+
+
+
 def make_patient(patient, username, uid):
     now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
     new_patient = {
@@ -132,5 +144,5 @@ def make_patient(patient, username, uid):
         elif value is '':
             new_patient[key] = '-'
         else:
-            new_patient[key] = value.lower()
+            new_patient[key] = value.lower().strip()
     return new_patient
