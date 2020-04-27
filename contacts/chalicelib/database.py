@@ -91,10 +91,10 @@ class DynamoDBContacts(ContactsDB):
 
 
 def make_contact(contact, username):
-    uid = str(uuid4())
+    uid = contact['patient_uid']
     now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
     new_contact = {
-        'uid': uid[:13],
+        'uid': uid,
         'active': True,
         'created_by': username,
         'modified_by': username,
