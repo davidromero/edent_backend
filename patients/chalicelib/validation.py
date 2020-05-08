@@ -3,9 +3,10 @@ import datetime
 mandatory_fields = ['first_name', 'last_name', 'birthday', 'sex', 'clinic_location', 'visit_reason', 'phone_number']
 available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala']
 genders = ['male', 'female']
-visit_reasons = ['ortodoncia', 'odontologia']
+visit_reasons = ['ortodoncia', 'operatoria', 'endodoncia', 'cirugia', 'seguro']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp', 'active']
 all_fields = ['first_name', 'last_name', 'birthday', 'sex', 'clinic_location', 'visit_reason', 'phone_number', 'address', 'email']
+
 
 def validate_patient_fields(new_patient):
     if not has_mandatory_fields(new_patient):

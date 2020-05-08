@@ -77,7 +77,7 @@ class DynamoDBContacts(ContactsDB):
                 for key in body.keys():
                     item[key] = body[key].lower().strip()
                 if validate_contact_fields(item):
-                    now = datetime.datetime.now().isoformat()
+                    now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
                     item['modified_by'] = username
                     item['modified_timestamp'] = now
                     response = self._table.put_item(Item=item)
