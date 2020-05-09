@@ -83,13 +83,17 @@ class DynamoDBPatients(PatientsDB):
             if item is not None:
                 for key in body.keys():
                     item[key] = body[key].lower().strip()
-
-                if validate_patient_fields(item):
-                    now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
-                    item['modified_by'] = username
-                    item['modified_timestamp'] = now
-                    response = self._table.put_item(Item=item)
-                    return response['ResponseMetadata']
+                print(json.dumps(body))
+                res = update_contact(item['contact_uid'], body)
+                if res is not None:
+                    if validate_patient_fields(item):
+                        now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
+                        item['modified_by'] = username
+                        item['modified_timestamp'] = now
+                        response = self._table.put_item(Item=item)
+                        return response['ResponseMetadata']
+                    else:
+                        return 400
                 else:
                     return 400
             else:
@@ -120,6 +124,16 @@ def make_contact(patient, username, uid):
 
 def inactivate_contact(uid):
     res = requests.delete('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts/' + uid)
+    if res.status_code is 204:
+        return res
+    else:
+        return None
+
+
+def update_contact(uid, body):
+    res = requests.put('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts/' + uid,
+                       data=json.dumps(body),
+                       headers={'Content-type': 'application/json', 'Accept': 'application/json'})
     if res.status_code is 204:
         return res
     else:

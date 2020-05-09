@@ -75,7 +75,8 @@ class DynamoDBContacts(ContactsDB):
             item = self.get_item(uid, username)
             if item is not None:
                 for key in body.keys():
-                    item[key] = body[key].lower().strip()
+                    if key in all_fields:
+                        item[key] = body[key].lower().strip()
                 if validate_contact_fields(item):
                     now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
                     item['modified_by'] = username
