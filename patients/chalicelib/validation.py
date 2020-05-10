@@ -5,7 +5,7 @@ logging.basicConfig()
 logger = logging.getLogger(__name__)
 
 mandatory_fields = ['first_name', 'last_name', 'sex', 'birthday', 'clinic_location', 'visit_reason', 'phone_number']
-available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala']
+available_locations = ['chiquimula', 'jocotan']
 genders = ['male', 'female']
 visit_reasons = ['operatoria', 'endodoncia', 'cirugia', 'seguro']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp', 'active']
@@ -60,6 +60,8 @@ def has_mandatory_fields(patient):
 
 
 def validate_birthday(date_time_str):
+    if date_time_str == '-':
+        return True
     try:
         birthday_date = datetime.datetime.strptime(date_time_str, '%Y-%m-%d')
     except ValueError:
@@ -68,6 +70,6 @@ def validate_birthday(date_time_str):
     today = datetime.datetime.now()
     age = (today - birthday_date).days / 365
     if age < 1 or age > 100:
-        logger.error('Ages is inconsistent')
+        logger.error('Age is inconsistent')
         return False
     return True
