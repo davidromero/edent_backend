@@ -116,7 +116,7 @@ class DynamoDBPatients(PatientsDB):
                 logger.error(f'Patient {uid} not found')
                 return 404
         else:
-            logger.error(f'Inactivating patient {uid}')
+            logger.error(f'Patient update is not valid')
             return 400
 
 

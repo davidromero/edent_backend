@@ -22,8 +22,10 @@ def validate_patient_fields(new_patient):
 
 def validate_mandatory_fields(patient):
     if len(patient['first_name']) < 3 or len(patient['first_name']) > 99:
+        logger.error('First name is invalid')
         return False
     if len(patient['last_name']) < 3 or len(patient['last_name']) > 99:
+        logger.error('Last name is invalid')
         return False
     if patient['clinic_location'] not in available_locations:
         logger.error('Clinic location is invalid')
@@ -35,6 +37,7 @@ def validate_mandatory_fields(patient):
         logger.error('Visit reason is invalid')
         return False
     if not validate_birthday(patient['birthday']):
+        logger.error('Birthday is invalid')
         return False
     return True
 

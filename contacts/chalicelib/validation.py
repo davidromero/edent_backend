@@ -1,4 +1,8 @@
 import re
+import logging
+
+logging.basicConfig()
+logger = logging.getLogger(__name__)
 
 mandatory_fields = ['first_name', 'last_name', 'clinic_location', 'phone_number']
 available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala']
@@ -18,10 +22,13 @@ def validate_contact_fields(new_contact):
 
 def validate_mandatory_fields(contact):
     if len(contact['first_name']) < 3 or len(contact['first_name']) > 99:
+        logger.error('First name is invalid')
         return False
     if len(contact['last_name']) < 3 or len(contact['last_name']) > 99:
+        logger.error('Last name is invalid')
         return False
     if contact['clinic_location'] not in available_locations:
+        logger.error('Clinic location is invalid')
         return False
     if 'phone_number' in contact.keys() and not validate_phone_number(contact['phone_number']):
         return False
@@ -30,7 +37,7 @@ def validate_mandatory_fields(contact):
 
 def validate_optional_fields(contact):
     if 'email' in contact.keys() and not validate_email(contact['email']):
-        print("Invalid email")
+        logger.error("Invalid email")
         return False
     return True
 
@@ -38,6 +45,7 @@ def validate_optional_fields(contact):
 def validate_update(body):
     for key in body.keys():
         if key in non_editables:
+            logger.error('Non editable is being changed')
             return False
     return True
 
@@ -45,11 +53,11 @@ def validate_update(body):
 def has_mandatory_fields(contact):
     for mandatory_key in mandatory_fields:
         if mandatory_key not in contact.keys():
-            print('Mandatory field missing: ' + mandatory_key)
+            logger.error('Mandatory field missing: ' + mandatory_key)
             return False
         mandatory_value = contact[mandatory_key].strip()
         if mandatory_value is '' or None:
-            print('Mandatory field is blank: ' + mandatory_key)
+            logger.error('Mandatory field is blank: ' + mandatory_key)
             return False
     return True
 
