@@ -35,7 +35,7 @@ def add_new_patient():
 
 
 @app.route('/patients/{uid}', methods=['DELETE'], cors=cors_config)
-def delete_patientt(uid):
+def delete_patient(uid):
     response = get_app_db().inactivate_item(uid)
     return custom_responses.edit_response(response, uid)
 
