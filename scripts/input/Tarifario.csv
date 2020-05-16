@@ -1,0 +1,45 @@
+uid,type,level1,level2,level3,price
+1,operatoria,recina,pequeña,,250
+2,operatoria,recina,grande,,300
+3,operatoria,carilla,pequeña,,300
+4,operatoria,carilla,grande,,350
+5,operatoria,amalgama,pequeña,,150
+6,operatoria,amalgama,grande,,200
+7,operatoria,relleno blanco en cápsula,,,300
+8,operatoria,exodoncia,niño permanente,,200
+9,operatoria,exodoncia,niño leche,,50
+10,operatoria,exodoncia,adulto anteriores,,150
+11,operatoria,exodoncia,adulto superiores,,200
+12,operatoria,exodoncia,coidal superiores,,300
+13,operatoria,limpieza con detrartraje,,,300
+14,operatoria,blanqueamiento,,,300
+15,operatoria,casquitos,,,300
+16,operatoria,coronas,,,1500
+17,operatoria,cementación de coronas,,,100
+18,operatoria,prótesis,removible unilateral,acrílico chiquimula,0
+19,operatoria,prótesis,removible unilateral,acrílico guatemala,0
+20,operatoria,prótesis,removible unilateral,cromo chiquimula,0
+21,operatoria,prótesis,removible unilateral,cromo guatemala,0
+22,operatoria,prótesis,removible unilateral,valplast,0
+23,operatoria,prótesis,removible bilateral,acrílico chiquimula,0
+24,operatoria,prótesis,removible bilateral,acrílico guatemala,0
+25,operatoria,prótesis,removible bilateral,cromo chiquimula,0
+26,operatoria,prótesis,removible bilateral,cromo guatemala,0
+27,operatoria,prótesis,removible bilateral,valplast,0
+28,operatoria,prótesis,removible total,acrílico chiquimula,0
+29,operatoria,prótesis,removible total,acrílico guatemala,0
+30,operatoria,prótesis,removible total,cromo chiquimula,0
+31,operatoria,prótesis,removible total,cromo guatemala,0
+32,operatoria,prótesis,removible total,valplast,0
+33,endodoncia,TCR,,,900
+34,endodoncia,curación de TCR,,,0
+35,endodoncia,evaluación de TCR,,,0
+36,cirugia,cordal,,,500
+37,cirugia,frenectomía,lengua,,900
+38,cirugia,frenectomía,frenillo,,900
+39,seguro,evaluación,,,50
+40,seguro,limpieza,,,75
+41,seguro,amalgama,,,100
+42,seguro,recina,,,110
+43,seguro,exodoncia,leche,,35
+44,seguro,exodoncia,adulto,,50
