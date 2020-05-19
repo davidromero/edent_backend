@@ -2,12 +2,12 @@ import csv
 import json
 import boto3
 
-TABLE_NAME = ''
+TABLE_NAME = 'treatment_rates_chiquimula'
 FILE_PATH = './input/Tarifario.csv'
 
 dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 
-table = dynamodb.Table('treatment_rates_chiquimula')
+table = dynamodb.Table(TABLE_NAME)
 
 with open(FILE_PATH, 'r', encoding='utf-8') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
