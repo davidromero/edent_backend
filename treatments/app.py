@@ -27,9 +27,17 @@ def get_treatment_by_id(uid):
     return custom_responses.get_response(response, uid)
 
 
+@app.route('/treatments', methods=['POST'], cors=cors_config)
+def add_new_treatments():
+    body = app.current_request.json_body
+    new_item_id = get_app_db().add_item(treatment=body)
+    return custom_responses.post_response(new_item_id)
+
+
+
 @app.route('/rates', methods=['GET'], cors=cors_config)
 def get_treatment_rates():
-    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    dynamodb = boto3.resource('dynamodb', region_name=AWS_DEFAULT_REGION)
     table = dynamodb.Table(RATES_TABLE_NAME)
     response = table.scan()
     return custom_responses.get_treatment_rates(response['Items'])

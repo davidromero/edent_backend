@@ -56,7 +56,7 @@ def has_mandatory_fields(patient):
             logger.error('Mandatory field missing: ' + mandatory_key)
             return False
         mandatory_value = patient[mandatory_key].strip()
-        if mandatory_value is '' or None:
+        if mandatory_value == '-' or None:
             logger.error('Mandatory field is blank: ' + mandatory_key)
             return False
     return True
