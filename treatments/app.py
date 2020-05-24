@@ -1,5 +1,7 @@
 import boto3 as boto3
 import logging
+
+from boto3.dynamodb.conditions import Attr
 from chalice import Chalice
 
 from chalicelib import database, custom_responses
@@ -34,12 +36,12 @@ def add_new_treatments():
     return custom_responses.post_response(new_item_id)
 
 
-
 @app.route('/rates', methods=['GET'], cors=cors_config)
 def get_treatment_rates():
+    params = app.current_request.query_params
     dynamodb = boto3.resource('dynamodb', region_name=AWS_DEFAULT_REGION)
     table = dynamodb.Table(RATES_TABLE_NAME)
-    response = table.scan()
+    response = table.scan(FilterExpression=Attr('type').eq(params['type']))
     return custom_responses.get_treatment_rates(response['Items'])
 
 

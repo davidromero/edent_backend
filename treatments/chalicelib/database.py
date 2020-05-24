@@ -46,7 +46,6 @@ class DynamoDBTreatments(TreatmentsDB):
         logger.error(f'Treatment {treatment_uid} not found')
         return None
 
-
     def add_item(self, treatment, username=DEFAULT_USERNAME):
         logger.debug('Adding new treatment')
         uid = str(uuid4())[:13]

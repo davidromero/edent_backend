@@ -1,0 +1,14 @@
+attrs==19.3.0
+boto3==1.13.11
+botocore==1.16.11
+chalice==1.14.1
+click==7.1.2
+docutils==0.15.2
+enum-compat==0.0.3
+jmespath==0.10.0
+python-dateutil==2.8.1
+pytz==2020.1
+s3transfer==0.3.3
+six==1.14.0
+typing==3.6.4
+urllib3==1.25.9

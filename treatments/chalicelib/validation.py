@@ -30,7 +30,7 @@ def validate_mandatory_fields(treatment):
         logger.error('Clinic location is invalid')
         return False
     if treatment['treatment_type'] not in treatment_type:
-        logger.error('Visit reason is invalid')
+        logger.error('Treatment type is invalid')
         return False
     if len(treatment['treatment_name']) < 3 or len(treatment['treatment_name']) > 50:
         logger.error('Treatment name is invalid')
