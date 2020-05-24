@@ -72,6 +72,9 @@ class DynamoDBCheckout(CheckoutDB):
         item = self.get_item(uid, username)
         if item is not None:
             item['paid'] = True
+            now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
+            item['modified_by'] = username
+            item['modified_timestamp'] = now
             response = self._table.put_item(Item=item)
             return response['ResponseMetadata']
         else:

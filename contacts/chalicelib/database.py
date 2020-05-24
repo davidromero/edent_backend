@@ -74,6 +74,9 @@ class DynamoDBContacts(ContactsDB):
         item = items[0]
         if item is not None:
             item['active'] = False
+            now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
+            item['modified_by'] = username
+            item['modified_timestamp'] = now
             response = self._table.put_item(Item=item)
             return response['ResponseMetadata']
         else:
