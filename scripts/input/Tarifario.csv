@@ -1,45 +1,45 @@
 uid,type,level1,level2,price
-1,operatoria,recina,pequeña,250
-2,operatoria,recina,grande,300
-3,operatoria,carilla,pequeña,300
-4,operatoria,carilla,grande,350
-5,operatoria,amalgama,pequeña,150
-6,operatoria,amalgama,grande,200
-7,operatoria,relleno blanco en cápsula,,300
-8,operatoria,exodoncia,niño permanente,200
-9,operatoria,exodoncia,niño leche,50
-10,operatoria,exodoncia,adulto anteriores,150
-11,operatoria,exodoncia,adulto superiores,200
-12,operatoria,exodoncia,coidal superiores,300
-13,operatoria,limpieza con detrartraje,,300
-14,operatoria,blanqueamiento,,300
-15,operatoria,casquitos,,300
-16,operatoria,coronas,,1500
-17,operatoria,cementación de coronas,,100
-18,operatoria,prótesis unilateral,acrílico chiquimula,0
-19,operatoria,prótesis unilateral,acrílico guatemala,0
-20,operatoria,prótesis unilateral,cromo chiquimula,0
-21,operatoria,prótesis unilateral,cromo guatemala,0
-22,operatoria,prótesis unilateral,valplast,0
-23,operatoria,prótesis bilateral,acrílico chiquimula,0
-24,operatoria,prótesis bilateral,acrílico guatemala,0
-25,operatoria,prótesis bilateral,cromo chiquimula,0
-26,operatoria,prótesis bilateral,cromo guatemala,0
-27,operatoria,prótesis bilateral,valplast,0
-28,operatoria,prótesis total,acrílico chiquimula,0
-29,operatoria,prótesis total,acrílico guatemala,0
-30,operatoria,prótesis total,cromo chiquimula,0
-31,operatoria,prótesis total,cromo guatemala,0
-32,operatoria,prótesis total,valplast,0
-33,endodoncia,TCR,,900
-34,endodoncia,curación de TCR,,0
-35,endodoncia,evaluación de TCR,,0
-36,cirugia,cordal,,500
-37,cirugia,frenectomía,lengua,900
-38,cirugia,frenectomía,frenillo,900
-39,seguro,evaluación,,50
-40,seguro,limpieza,,75
-41,seguro,amalgama,,100
-42,seguro,recina,,110
-43,seguro,exodoncia,leche,35
-44,seguro,exodoncia,adulto,50
+o001,operatoria,recina,pequeña,250
+o002,operatoria,recina,grande,300
+o003,operatoria,carilla,pequeña,300
+o004,operatoria,carilla,grande,350
+o005,operatoria,amalgama,pequeña,150
+o006,operatoria,amalgama,grande,200
+o007,operatoria,relleno blanco en cápsula,,300
+o008,operatoria,exodoncia,niño permanente,200
+o009,operatoria,exodoncia,niño leche,50
+o010,operatoria,exodoncia,adulto anteriores,150
+o011,operatoria,exodoncia,adulto superiores,200
+o012,operatoria,exodoncia,coidal superiores,300
+o013,operatoria,limpieza con detrartraje,,300
+o014,operatoria,blanqueamiento,,300
+o015,operatoria,casquitos,,300
+o016,operatoria,coronas,,1500
+o017,operatoria,cementación de coronas,,100
+o018,operatoria,prótesis unilateral,acrílico chiquimula,0
+o019,operatoria,prótesis unilateral,acrílico guatemala,0
+o020,operatoria,prótesis unilateral,cromo chiquimula,0
+o021,operatoria,prótesis unilateral,cromo guatemala,0
+o022,operatoria,prótesis unilateral,valplast,0
+o023,operatoria,prótesis bilateral,acrílico chiquimula,0
+o024,operatoria,prótesis bilateral,acrílico guatemala,0
+o025,operatoria,prótesis bilateral,cromo chiquimula,0
+o026,operatoria,prótesis bilateral,cromo guatemala,0
+o027,operatoria,prótesis bilateral,valplast,0
+o028,operatoria,prótesis total,acrílico chiquimula,0
+o029,operatoria,prótesis total,acrílico guatemala,0
+o030,operatoria,prótesis total,cromo chiquimula,0
+o031,operatoria,prótesis total,cromo guatemala,0
+o032,operatoria,prótesis total,valplast,0
+e001,endodoncia,TCR,,900
+e002,endodoncia,curación de TCR,,0
+e003,endodoncia,evaluación de TCR,,0
+c001,cirugia,cordal,,500
+c002,cirugia,frenectomía,lengua,900
+c003,cirugia,frenectomía,frenillo,900
+s001,seguro,evaluación,,50
+s002,seguro,limpieza,,75
+s003,seguro,amalgama,,100
+s004,seguro,recina,,110
+s005,seguro,exodoncia,leche,35
+s006,seguro,exodoncia,adulto,50
