@@ -15,7 +15,7 @@ _DB = None
 
 @app.route('/')
 def index():
-    return {'hello': 'world'}
+    return custom_responses.get_base_res()
 
 
 @app.route('/checkout', methods=['GET'], cors=cors_config)
