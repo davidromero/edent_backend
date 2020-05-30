@@ -7,18 +7,18 @@ response_headers = {'Content-Type': 'application/json',
 def get_base_res():
     return Response(
         status_code=200,
-        body={'status': 200, 'payload': 'eDent checkout service running...'},
+        body={'status': 200, 'payload': 'eDent appointments service running...'},
         headers=response_headers
     )
 
 
-def get_appointments_list(appoitment_list):
-    if appoitment_list is not None:
+def get_appointments_list(appointment_list):
+    if appointment_list is not None:
         return Response(
             status_code=200,
             body={
                 'status': 200,
-                'payload': appoitment_list
+                'payload': appointment_list
             },
             headers=response_headers
         )
@@ -79,43 +79,8 @@ def post_fail():
         status_code=400,
         body={
             'status': 400,
-            'payload': 'Checkout could not be inserted.'
+            'payload': 'Appointment could not be inserted.'
         },
         headers=response_headers
     )
 
-
-def edit_response(response, uid):
-    if isinstance(response, int):
-        if response == 404:
-            return not_found(uid)
-        elif response == 400:
-            return edit_fail(uid)
-    else:
-        if response['HTTPStatusCode'] == 200:
-            return edit_success(uid)
-    return edit_fail(uid)
-
-
-def edit_success(uid):
-    message = '{} was correctly edited'.format(uid)
-    return Response(
-        status_code=204,
-        body={
-            'status': 204,
-            'payload': message
-        },
-        headers=response_headers
-    )
-
-
-def edit_fail(uid):
-    message = '{} failed to edit'.format(uid)
-    return Response(
-        status_code=400,
-        body={
-            'status': 400,
-            'payload': message
-        },
-        headers=response_headers
-    )

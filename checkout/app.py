@@ -1,5 +1,3 @@
-import json
-
 import boto3 as boto3
 import logging
 from chalice import Chalice
@@ -19,9 +17,9 @@ def index():
 
 
 @app.route('/checkout', methods=['GET'], cors=cors_config)
-def get_all_patients():
+def get_all_checkouts():
     checkout_list = get_app_db().list_unpaid_items()
-    return custom_responses.get_treatment_list(checkout_list)
+    return custom_responses.get_appointments_list(checkout_list)
 
 
 @app.route('/checkout', methods=['POST'], cors=cors_config)

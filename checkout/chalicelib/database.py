@@ -40,7 +40,7 @@ class DynamoDBCheckout(CheckoutDB):
         response = self._table.scan(FilterExpression=Attr('paid').eq(False))
         return response['Items']
 
-    def list_paid_items(self, treatment_uid, username=DEFAULT_USERNAME):
+    def list_paid_items(self, username=DEFAULT_USERNAME):
         logger.debug('Listing paid treatments in checkout')
         response = self._table.scan(FilterExpression=Attr('paid').eq(True))
         return response['Items']
@@ -92,7 +92,7 @@ def add_treatments(new_checkout, checkout):
         payload = {
             'uid': uid,
             'checkout_uid': new_checkout['uid'],
-            'treatment_uid': treatment['id'],
+            'treatment_uid': treatment['uid'],
             'treatment_name': treatment['name'],
             'treatment_price': treatment['price'],
             'treatment_type': checkout['treatment_type'],
