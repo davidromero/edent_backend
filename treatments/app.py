@@ -20,7 +20,7 @@ def index():
 @app.route('/treatments', methods=['GET'], cors=cors_config)
 def get_all_treatments():
     treatment_list = get_app_db().list_all_items()
-    return custom_responses.get_appointments_list(treatment_list)
+    return custom_responses.get_treatments_list(treatment_list)
 
 
 @app.route('/treatments/{uid}', methods=['GET'], cors=cors_config)

@@ -12,7 +12,7 @@ def get_base_res():
     )
 
 
-def get_treatment_list(treatment_list):
+def get_treatments_list(treatment_list):
     if treatment_list is not None:
         return Response(
             status_code=200,
