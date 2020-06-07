@@ -4,36 +4,31 @@ import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 
-mandatory_fields = ['first_name', 'last_name', 'patient_uid', 'clinic_location', 'treatment_type', 'treatment_name', 'treatment_price', 'treatment_uid']
+mandatory_fields = ['first_name', 'last_name', 'patient_uid', 'clinic_location', 'start_time']
 available_locations = ['chiquimula', 'jocotan']
-treatment_type = ['operatoria', 'endodoncia', 'cirugia', 'seguro']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp']
-all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'treatment_type', 'treatment_name', 'treatment_price', 'treatment_uid', 'checkout_uid']
+all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'start_time']
 
 
-def validate_appointment_fields(new_treatment):
-    if not has_mandatory_fields(new_treatment):
+def validate_appointment_fields(new_appointment):
+    if not has_mandatory_fields(new_appointment):
         return False
-    if not validate_mandatory_fields(new_treatment):
+    if not validate_mandatory_fields(new_appointment):
         return False
     return True
 
 
-def validate_mandatory_fields(treatment):
-    if len(treatment['first_name']) < 3 or len(treatment['first_name']) > 99:
+def validate_mandatory_fields(appointment):
+    if len(appointment['first_name']) < 3 or len(appointment['first_name']) > 99:
         logger.error('First name is invalid')
         return False
-    if len(treatment['last_name']) < 3 or len(treatment['last_name']) > 99:
+    if len(appointment['last_name']) < 3 or len(appointment['last_name']) > 99:
         logger.error('Last name is invalid')
         return False
-    if treatment['clinic_location'] not in available_locations:
+    if appointment['clinic_location'] not in available_locations:
         logger.error('Clinic location is invalid')
         return False
-    if treatment['treatment_type'] not in treatment_type:
-        logger.error('Treatment type is invalid')
-        return False
-    if len(treatment['treatment_name']) < 3 or len(treatment['treatment_name']) > 50:
-        logger.error('Treatment name is invalid')
+    if not validate_datetime(appointment['start_time']):
         return False
     return True
 
@@ -50,3 +45,10 @@ def has_mandatory_fields(treatment):
             return False
     return True
 
+
+def validate_datetime(date_text):
+    try:
+        datetime.datetime.strptime(date_text, '%Y-%m-%dT%H:%M')
+        return True
+    except ValueError:
+        raise ValueError("Incorrect data format, should be YYYY-MM-DDTHH:mm")

@@ -16,24 +16,22 @@ o014,operatoria,blanqueamiento,,300
 o015,operatoria,casquitos,,300
 o016,operatoria,coronas,,1500
 o017,operatoria,cementación de coronas,,100
-o018,operatoria,prótesis unilateral,acrílico chiquimula,0
-o019,operatoria,prótesis unilateral,acrílico guatemala,0
-o020,operatoria,prótesis unilateral,cromo chiquimula,0
-o021,operatoria,prótesis unilateral,cromo guatemala,0
-o022,operatoria,prótesis unilateral,valplast,0
-o023,operatoria,prótesis bilateral,acrílico chiquimula,0
-o024,operatoria,prótesis bilateral,acrílico guatemala,0
-o025,operatoria,prótesis bilateral,cromo chiquimula,0
-o026,operatoria,prótesis bilateral,cromo guatemala,0
-o027,operatoria,prótesis bilateral,valplast,0
-o028,operatoria,prótesis total,acrílico chiquimula,0
-o029,operatoria,prótesis total,acrílico guatemala,0
-o030,operatoria,prótesis total,cromo chiquimula,0
-o031,operatoria,prótesis total,cromo guatemala,0
-o032,operatoria,prótesis total,valplast,0
+o018,operatoria,prótesis unilateral,acrílico chiquimula,600
+o019,operatoria,prótesis unilateral,acrílico guatemala,800
+o020,operatoria,prótesis unilateral,cromo chiquimula,800
+o021,operatoria,prótesis unilateral,cromo guatemala,900
+o022,operatoria,prótesis unilateral,valplast,1500
+o023,operatoria,prótesis bilateral,acrílico chiquimula,850
+o024,operatoria,prótesis bilateral,acrílico guatemala,975
+o025,operatoria,prótesis bilateral,cromo chiquimula,1300
+o026,operatoria,prótesis bilateral,cromo guatemala,1600
+o027,operatoria,prótesis bilateral,valplast,2500
+o028,operatoria,prótesis total,acrílico chiquimula,850
+o029,operatoria,prótesis total,acrílico guatemala,975
+o030,operatoria,prótesis total,valplast,3000
 e001,endodoncia,TCR,,900
-e002,endodoncia,curación de TCR,,0
-e003,endodoncia,evaluación de TCR,,0
+e002,endodoncia,medicación de TCR,,300
+e003,endodoncia,evaluación de TCR,,150
 c001,cirugia,cordal,,500
 c002,cirugia,frenectomía,lengua,900
 c003,cirugia,frenectomía,frenillo,900

@@ -22,6 +22,13 @@ def get_all_appointments():
     return custom_responses.get_appointments_list(appointment_list)
 
 
+@app.route('/appointments/{uid}', methods=['POST'], cors=cors_config)
+def add_new_appointment(uid):
+    body = app.current_request.json_body
+    new_item_id = get_app_db().add_item(appointment=body, patient=uid)
+    return custom_responses.post_response(new_item_id)
+
+
 
 
 def get_app_db():
