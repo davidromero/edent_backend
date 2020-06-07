@@ -1,7 +1,6 @@
 from chalice import CORSConfig
 
-RATES_TABLE_NAME = 'treatment_rates_chiquimula'
-TABLE_NAME = 'edent_treatments_dev'
+TABLE_NAME = 'edent_appointments_dev'
 AWS_DEFAULT_REGION = 'us-east-1'
 
 

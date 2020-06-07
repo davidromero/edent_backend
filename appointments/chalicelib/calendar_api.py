@@ -1,5 +1,6 @@
 from __future__ import print_function
 import datetime
+import json
 import pickle
 import os.path
 from googleapiclient.discovery import build
@@ -33,20 +34,17 @@ def get_google_creds():
 def get_next_events(max_items, calendar):
     creds = get_google_creds()
     service = build('calendar', 'v3', credentials=creds)
-
     now = datetime.datetime.utcnow().isoformat() + 'Z'
     logger.debug(f'Getting the upcoming {max_items} events')
     events_result = service.events().list(calendarId=calendar, timeMin=now,
                                           maxResults=max_items, singleEvents=True,
                                           orderBy='startTime').execute()
     events = events_result.get('items', [])
-
     if not events:
         logger.debug('No upcoming events found.')
         return None
     else:
         return make_response(events)
-
 
 
 def make_response(event_list):
@@ -61,3 +59,26 @@ def make_response(event_list):
         }
         appointments.append(appointment)
     return appointments
+
+
+def create_event(event_details):
+    creds = get_google_creds()
+    service = build('calendar', 'v3', credentials=creds)
+    start_time = datetime.datetime.strptime(event_details['start_time'], '%Y-%m-%dT%H:%M:%S')
+    end_time = start_time + datetime.timedelta(minutes=int(event_details['duration']))
+    summary = f'{event_details["first_name"]} {event_details["last_name"]}'
+    description = f'{event_details["treatment_name"]}.\n {event_details["clinic_location"]}'
+    event = {
+        'summary': summary,
+        'description': description,
+        'start': {
+            'dateTime': event_details['start_time'],
+            'timeZone': 'America/Guatemala',
+        },
+        'end': {
+            'dateTime': end_time.strftime('%Y-%m-%dT%H:%M:%S'),
+            'timeZone': 'America/Guatemala',
+        }
+    }
+    event = service.events().insert(calendarId='primary', body=event).execute()
+    return event.get('htmlLink')

@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 mandatory_fields = ['first_name', 'last_name', 'patient_uid', 'clinic_location', 'start_time']
 available_locations = ['chiquimula', 'jocotan']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp']
-all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'start_time']
+all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'start_time', 'duration', 'treatment_name']
 
 
 def validate_appointment_fields(new_appointment):
@@ -48,7 +48,7 @@ def has_mandatory_fields(treatment):
 
 def validate_datetime(date_text):
     try:
-        datetime.datetime.strptime(date_text, '%Y-%m-%dT%H:%M')
+        datetime.datetime.strptime(date_text, '%Y-%m-%dT%H:%M:%S')
         return True
     except ValueError:
-        raise ValueError("Incorrect data format, should be YYYY-MM-DDTHH:mm")
+        raise ValueError("Incorrect data format, should be YYYY-MM-DDTHH:mm:ss")

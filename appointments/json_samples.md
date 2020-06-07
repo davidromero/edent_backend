@@ -5,10 +5,7 @@
 {
     "summary": "Google I/O 2015",
     "description": "A chance to hear more about Google\"s developer products.",
-    "start": {
-        "dateTime": "2015-05-28T09:00:00-07:00",
-        "timeZone": "America/Los_Angeles"
-    },
+    "start": "2015-05-28T09:00:00-07:00",
     "duration": 30
 }
 ```
