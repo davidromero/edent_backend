@@ -3,7 +3,7 @@ import logging
 from chalice import Chalice
 
 from chalicelib import database, custom_responses, calendar_api
-from chalicelib.config import RATES_TABLE_NAME, TABLE_NAME, AWS_DEFAULT_REGION, cors_config
+from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
 app = Chalice(app_name='appointments')
 app.log.setLevel(logging.DEBUG)

@@ -29,7 +29,7 @@ def checkout_treatments():
     return custom_responses.post_response(new_item_id)
 
 
-@app.route('/checkout/{uid}', methods=['DELETE'])
+@app.route('/checkout/{uid}', methods=['DELETE'], cors=cors_config)
 def pay_checkout(uid):
     response = get_app_db().pay_item(uid)
     return custom_responses.edit_response(response, uid)
