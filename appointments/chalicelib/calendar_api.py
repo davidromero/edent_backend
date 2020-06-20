@@ -1,11 +1,8 @@
 from __future__ import print_function
 import datetime
-import json
-import pickle
-import os.path
+import httplib2
 from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+from oauth2client.service_account import ServiceAccountCredentials
 import logging
 
 
@@ -14,26 +11,18 @@ logging.basicConfig()
 logger = logging.getLogger(__name__)
 
 
-def get_google_creds():
-    creds = None
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                './chalicelib/credentials/credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-    return creds
+def get_google_calendar_service():
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+        filename='chalicelib/credentials/edent-61d92-6ee5a9bac305.json',
+        scopes=SCOPES
+    )
+    http = credentials.authorize(httplib2.Http())
+    service = build('calendar', 'v3', http=http)
+    return service
 
 
 def get_next_events(max_items, calendar):
-    creds = get_google_creds()
-    service = build('calendar', 'v3', credentials=creds)
+    service = get_google_calendar_service()
     now = datetime.datetime.utcnow().isoformat() + 'Z'
     logger.debug(f'Getting the upcoming {max_items} events')
     events_result = service.events().list(calendarId=calendar, timeMin=now,
@@ -62,8 +51,7 @@ def make_response(event_list):
 
 
 def create_event(event_details):
-    creds = get_google_creds()
-    service = build('calendar', 'v3', credentials=creds)
+    service = get_google_calendar_service()
     start_time = datetime.datetime.strptime(event_details['start_time'], '%Y-%m-%dT%H:%M:%S')
     end_time = start_time + datetime.timedelta(minutes=int(event_details['duration']))
     summary = f'{event_details["first_name"]} {event_details["last_name"]}'
