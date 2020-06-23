@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4aa40347-2a2d-4768-baab-42ab2aeb9f5c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+    <list default="true" id="4aa40347-2a2d-4768-baab-42ab2aeb9f5c" name="Default Changelist" comment="workspace generated again">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appointments/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkout/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/contacts/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/whatsapp-client/.gitignore" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +28,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/.gitignore" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RunManager">
@@ -59,15 +63,32 @@
       <option name="presentableId" value="Default" />
       <updated>1592947729512</updated>
       <workItem from="1592947731067" duration="52000" />
-      <workItem from="1592947820843" duration="193000" />
+      <workItem from="1592947820843" duration="334000" />
+      <workItem from="1592948261709" duration="1097000" />
     </task>
+    <task id="LOCAL-00001" summary="workspace generated again">
+      <created>1592948255514</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1592948255514</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="workspace generated again" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace generated again" />
   </component>
   <component name="WindowStateProjectService">
     <state x="230" y="261" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592947950777">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
     <state x="230" y="261" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.1177@0.23.1920.1177" timestamp="1592947950777" />
+    <state x="405" y="293" key="CommitChangelistDialog2" timestamp="1592948406300">
+      <screen x="0" y="23" width="1920" height="1177" />
+    </state>
+    <state x="405" y="293" key="CommitChangelistDialog2/0.23.1920.1177@0.23.1920.1177" timestamp="1592948406300" />
     <state x="329" y="238" key="SettingsEditor" timestamp="1592948013775">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
