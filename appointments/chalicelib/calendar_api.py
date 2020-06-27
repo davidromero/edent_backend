@@ -14,7 +14,7 @@ def get_google_calendar_service():
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
-    delegated_credentials = credentials.create_delegated('aldogatica123@gmail.com')
+    delegated_credentials = credentials.create_delegated('agatica@kaleido.page')
     delegated_http = delegated_credentials.authorize(httplib2.Http())
     service = build('calendar', 'v3', cache_discovery=False, http=delegated_http)
 
