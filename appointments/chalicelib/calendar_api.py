@@ -4,7 +4,7 @@ import httplib2
 from googleapiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 
-CLIENT_SECRET_FILE = 'chalicelib/credentials/edent-61d92-2e75249e0582.json'
+SERVICE_ACCOUNT_FILE = 'chalicelib/credentials/edent-61d92-2e75249e0582.json'
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -12,13 +12,11 @@ logger = logging.getLogger(__name__)
 
 def get_google_calendar_service():
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        CLIENT_SECRET_FILE,
-        SCOPES
-    )
+        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
-    http = credentials.authorize(httplib2.Http())
-
-    service = build('calendar', 'v3', http=http, cache_discovery=False)
+    delegated_credentials = credentials.create_delegated('aldogatica123@gmail.com')
+    delegated_http = delegated_credentials.authorize(httplib2.Http())
+    service = build('calendar', 'v3', cache_discovery=False, http=delegated_http)
 
     return service
 
@@ -28,7 +26,7 @@ def get_next_events(max_items, calendar):
 
     now = datetime.datetime.utcnow().isoformat() + 'Z'
     print(f'Getting the upcoming {max_items} events')
-    events_result = service.events().list(calendarId='aldogatica123@gmail.com').execute()
+    events_result = service.events().list(calendarId='primary').execute()
     events = events_result.get('items', [])
     if not events:
         logger.debug('No upcoming events found.')
