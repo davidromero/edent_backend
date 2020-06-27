@@ -2,4 +2,4 @@
 .idea/
 */venv/
 */.chalice/deployed/
-*/chalicelib/credentials
+*/chalicelib/credentials/

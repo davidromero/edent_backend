@@ -5,8 +5,12 @@
 {
     "summary": "Google I/O 2015",
     "description": "A chance to hear more about Google\"s developer products.",
-    "start": "2015-05-28T09:00:00-07:00",
-    "duration": 30
+    "start_time": "2020-06-23T09:00:00",
+    "duration": "30",
+    "first_name": "aldo",
+    "last_name": "gatica",
+    "patient_uid": "1234",
+    "clinic_location": "chiquimula"
 }
 ```
 
