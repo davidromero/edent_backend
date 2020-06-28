@@ -1,6 +1,5 @@
 import datetime
 from uuid import uuid4
-from chalicelib import calendar_api
 
 import pytz
 from boto3.dynamodb.conditions import Attr
@@ -50,18 +49,16 @@ class DynamoDBAppointments(AppointmentsDB):
 
     def add_item(self, appointment, patient_uid, username=DEFAULT_USERNAME):
         logger.debug(f'Scheduling appointment for {patient_uid}')
-        calendar_api.create_event(appointment)
-        # new_appointment = make_appointment(appointment, patient_uid, username)
-        # if validate_appointment_fields(new_appointment):
-        #     new_appointment['event_link'] = calendar_api.create_event(new_appointment)
-        #     logger.debug(f'Adding appointment: {json.dumps(new_appointment)}')
-        #     self._table.put_item(
-        #         Item=new_appointment
-        #     )
-        #     return new_appointment.get('uid')
-        # else:
-        #     logger.error('Contact creation is not valid')
-        #     return None
+        new_appointment = make_appointment(appointment, patient_uid, username)
+        if validate_appointment_fields(new_appointment):
+            logger.debug(f'Adding appointment: {json.dumps(new_appointment)}')
+            self._table.put_item(
+                Item=new_appointment
+            )
+            return new_appointment.get('uid')
+        else:
+            logger.error('Contact creation is not valid')
+            return None
 
 
 def make_appointment(appointment, patient_uid, username):

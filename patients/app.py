@@ -1,7 +1,7 @@
-import boto3 as boto3
 import logging
-from chalice import Chalice
 
+import boto3 as boto3
+from chalice import Chalice
 from chalicelib import database, custom_responses
 from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 

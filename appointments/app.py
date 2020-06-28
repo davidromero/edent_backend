@@ -10,7 +10,7 @@ app.log.setLevel(logging.DEBUG)
 _DB = None
 
 
-@app.route('/')
+@app.route('/', methods=['GET'], cors=cors_config)
 def index():
     return custom_responses.get_base_res()
 

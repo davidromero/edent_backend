@@ -26,7 +26,7 @@ def get_next_events(max_items, calendar):
 
     now = datetime.datetime.utcnow().isoformat() + 'Z'
     print(f'Getting the upcoming {max_items} events')
-    events_result = service.events().list(calendarId='primary').execute()
+    events_result = service.events().list(calendarId=calendar).execute()
     events = events_result.get('items', [])
     if not events:
         logger.debug('No upcoming events found.')
