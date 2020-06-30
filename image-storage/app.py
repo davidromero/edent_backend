@@ -6,10 +6,10 @@ app = Chalice(app_name='image-storage')
 BUCKET = 'images.edent.backend'
 s3_client = boto3.client('s3')
 
-@app.route('/upload/{file_name}', methods=['PUT'],
-    content_types=['application/octet-stream'])
-def upload_to_s3(file_name):
 
+@app.route('/upload/{file_name}', methods=['PUT'],
+           content_types=['image/jpeg', 'image/jpg'])
+def upload_to_s3(file_name):
     # get raw body of PUT request
     body = app.current_request.raw_body
 
