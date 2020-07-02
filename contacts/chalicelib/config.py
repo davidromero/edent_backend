@@ -1,2 +1,4 @@
-TABLE_NAME = 'edent_contacts_dev'
-AWS_DEFAULT_REGION = 'us-east-1'
+from os import environ
+
+TABLE_NAME = environ.get('TABLE_NAME')
+AWS_DEFAULT_REGION = environ.get('AWS_DEFAULT_REGION')

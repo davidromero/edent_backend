@@ -1,13 +1,19 @@
 # eDent Backend
 
 AWS serverless project for managing eDent's information.  
-All lambdas are written in python 3.6 and require a DynamoDB tables.  
+All lambdas are written in Python 3.6 and require a DynamoDB tables.  
 
 ## Quickstart
-To locally run a service use:  
+To locally run a service use on the working directory:  
 ```bash
 pip install -r requirements.txt
 chalice local
+```
+
+## Deployment
+
+```bash
+chalice deploy
 ```
 
 ### Routes and methods
@@ -59,20 +65,21 @@ chalice local
 | DELETE | /appointments/{uid} | Sets appointment as attended       |
 | PUT    | /appointments/{uid} | Updates the appointment data       |
 
+#### Image Storage
+| Method | URI Path            | Description                        |
+|--------|---------------------|------------------------------------|
+| GET    | /                   | Gets the service message           |
+| GET    | /upload/{uid}       | Uploads an image with a unique id  |
+
 ## Component Architecture
 
 Architecture used for the following services:
 Appointments, Checkout, Contacts, Patients and Treatments
-![eDent Chalice Architecture](https://user-images.githubusercontent.com/10179447/85958093-13dd1680-b950-11ea-96a7-5edd9f84c4e6.jpg)
+![Backend Architecture-DynamoDB services](https://user-images.githubusercontent.com/10179447/86320572-68a0bb80-bbf4-11ea-9e36-680f462aafc0.jpg)
 
 Architecture for Image Storage
-![eDent Backend Architecture-Chalice S3](https://user-images.githubusercontent.com/10179447/85958184-cc0abf00-b950-11ea-8119-498585768eaa.jpg) 
+![Backend Architecture-S3 services](https://user-images.githubusercontent.com/10179447/86320510-44dd7580-bbf4-11ea-8801-63ac7ae5e062.jpg)
 
-## Deployment
-
-```bash
-chalice deploy
-```
 
 
 

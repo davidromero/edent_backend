@@ -1,5 +1,8 @@
 from chalice import Response
 
+response_headers = {'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Content-Type'}
 
 def get_active_contacts(contact_list):
     if contact_list is not None:
@@ -9,10 +12,7 @@ def get_active_contacts(contact_list):
                 'status': 200,
                 'payload': contact_list
             },
-            headers={
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            }
+            headers=response_headers
         )
     else:
         return not_found(None)
@@ -32,10 +32,7 @@ def get_success(response):
             'status': 200,
             'payload': response
         },
-        headers={
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        }
+        headers=response_headers
     )
 
 
@@ -53,10 +50,7 @@ def post_success(uid):
             'status': 201,
             'payload': uid
         },
-        headers={
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        }
+        headers=response_headers
     )
 
 
@@ -67,10 +61,7 @@ def post_fail():
             'status': 400,
             'payload': 'Contact could not be inserted.'
         },
-        headers={
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        }
+        headers=response_headers
     )
 
 
@@ -94,10 +85,7 @@ def edit_success(uid):
             'status': 204,
             'payload': message
         },
-        headers={
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        }
+        headers=response_headers
     )
 
 
@@ -109,10 +97,7 @@ def edit_fail(uid):
             'status': 400,
             'payload': message
         },
-        headers={
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        }
+        headers=response_headers
     )
 
 
@@ -124,10 +109,7 @@ def not_found(uid):
             'status': 404,
             'payload': message
         },
-        headers={
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        }
+        headers=response_headers
     )
 
 
@@ -135,8 +117,5 @@ def get_base_res():
     return Response(
         status_code=200,
         body={'status': 200, 'payload': 'eDent contacts service running...'},
-        headers={
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        }
+        headers=response_headers
     )
