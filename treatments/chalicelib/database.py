@@ -1,9 +1,10 @@
-from boto3.dynamodb.conditions import Attr
-from uuid import uuid4
 import datetime
 import json
 import logging
+from uuid import uuid4
+
 import pytz
+from boto3.dynamodb.conditions import Attr
 from chalicelib.validation import validate_treatment_fields, all_fields
 
 logging.basicConfig()

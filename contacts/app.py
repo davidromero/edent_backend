@@ -52,5 +52,3 @@ def get_app_db():
             boto3.Session().resource(service_name='dynamodb', region_name=AWS_DEFAULT_REGION).Table(TABLE_NAME)
         )
     return _DB
-
-

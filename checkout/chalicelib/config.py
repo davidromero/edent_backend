@@ -1,9 +1,4 @@
-from chalice import CORSConfig
+from os import environ
 
-TABLE_NAME = 'edent_checkout_dev'
-AWS_DEFAULT_REGION = 'us-east-1'
-
-
-cors_config = CORSConfig(
-    allow_origin='*'
-)
+TABLE_NAME = environ.get('TABLE_NAME')
+AWS_DEFAULT_REGION = environ.get('AWS_DEFAULT_REGION')

@@ -1,10 +1,10 @@
-import pytz
 import datetime
 import json
-from uuid import uuid4
-import requests
 import logging
+from uuid import uuid4
 
+import pytz
+import requests
 from boto3.dynamodb.conditions import Attr
 from chalicelib.validation import validate_patient_fields, all_fields, validate_update
 

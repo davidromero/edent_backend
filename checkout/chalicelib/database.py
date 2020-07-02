@@ -1,10 +1,10 @@
 import datetime
 import json
 import logging
-import requests
 from uuid import uuid4
 
 import pytz
+import requests
 from boto3.dynamodb.conditions import Attr
 from chalicelib.validation import validate_checkout_fields, all_fields
 
@@ -130,7 +130,7 @@ def make_checkout(checkout, username):
             new_checkout[key] = EMPTY_FIELD
         else:
             if isinstance(new_checkout[key], dict):
-                new_checkout[key] = dict((k.lower(), v.lower()) for k,v in new_checkout[key].items())
+                new_checkout[key] = dict((k.lower(), v.lower()) for k, v in new_checkout[key].items())
             else:
                 new_checkout[key] = value.lower().strip()
     logger.debug("Making: " + json.dumps(new_checkout))

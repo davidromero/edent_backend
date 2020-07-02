@@ -1,12 +1,10 @@
 import datetime
 import json
 import logging
-import pytz
-from uuid import uuid4
 
+import pytz
 from boto3.dynamodb.conditions import Attr
 from chalicelib.validation import validate_contact_fields, all_fields, validate_update
-
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)

@@ -1,4 +1,3 @@
-import datetime
 import logging
 
 logging.basicConfig()
@@ -34,4 +33,3 @@ def validate_mandatory_fields(checkout):
         logger.error('Treatment list is empty')
         return False
     return True
-

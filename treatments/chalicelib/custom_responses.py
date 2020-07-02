@@ -1,7 +1,8 @@
 from chalice import Response
 
 response_headers = {'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'}
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Content-Type'}
 
 
 def get_base_res():
@@ -83,7 +84,6 @@ def post_fail():
         },
         headers=response_headers
     )
-
 
 
 def get_treatment_rates(treatment_list):

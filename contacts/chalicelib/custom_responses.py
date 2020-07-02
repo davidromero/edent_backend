@@ -4,6 +4,7 @@ response_headers = {'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Headers': 'Content-Type'}
 
+
 def get_active_contacts(contact_list):
     if contact_list is not None:
         return Response(

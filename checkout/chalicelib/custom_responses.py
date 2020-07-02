@@ -1,7 +1,8 @@
 from chalice import Response
 
 response_headers = {'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'}
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Content-Type'}
 
 
 def get_base_res():
@@ -12,13 +13,13 @@ def get_base_res():
     )
 
 
-def get_appointments_list(appoitment_list):
-    if appoitment_list is not None:
+def get_appointments_list(checkout_list):
+    if checkout_list is not None:
         return Response(
             status_code=200,
             body={
                 'status': 200,
-                'payload': appoitment_list
+                'payload': checkout_list
             },
             headers=response_headers
         )

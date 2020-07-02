@@ -1,10 +1,5 @@
-from chalice import CORSConfig
+from os import environ
 
-RATES_TABLE_NAME = 'treatment_rates_chiquimula'
-TABLE_NAME = 'edent_treatments_dev'
-AWS_DEFAULT_REGION = 'us-east-1'
-
-
-cors_config = CORSConfig(
-    allow_origin='*'
-)
+RATES_TABLE_NAME = environ.get('RATES_TABLES_NAME')
+TABLE_NAME = environ.get('TABLE_NAME')
+AWS_DEFAULT_REGION = environ.get('AWS_DEFAULT_REGION')
