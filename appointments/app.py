@@ -17,9 +17,13 @@ def index():
 
 @app.route('/appointments', methods=['GET'], cors=cors_config)
 def get_all_appointments():
-    results = app.current_request.query_params.get('results')
-    appointment_list = calendar_api.get_next_events(results, 'primary')
-    return custom_responses.get_appointments_list(appointment_list)
+    params = app.current_request.query_params
+    if params is not None:
+        appointment_list = calendar_api.get_next_events(params.get('results'), 'primary')
+        return custom_responses.get_appointments_list(appointment_list)
+    appointment_list = get_app_db().get_next_events()
+    return custom_responses.get_appointments_list()
+
 
 
 @app.route('/appointments/{uid}', methods=['POST'], cors=cors_config)

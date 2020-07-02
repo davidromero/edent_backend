@@ -71,7 +71,7 @@ def make_appointment(appointment, patient_uid, username):
         'created_timestamp': now,
         'modified_timestamp': now,
         'patient_uid': patient_uid,
-        'attended': False,
+        'missed': False,
     }
     for key in all_fields:
         value = appointment.get(key, EMPTY_FIELD)

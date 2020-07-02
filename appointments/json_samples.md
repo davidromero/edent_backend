@@ -3,13 +3,12 @@
 
 ```json
 {
-    "summary": "Google I/O 2015",
-    "description": "A chance to hear more about Google\"s developer products.",
-    "start_time": "2020-06-23T09:00:00",
+    "start_time": "2020-06-26T09:00:00",
     "duration": "30",
-    "first_name": "aldo",
+    "first_name": "asdf",
     "last_name": "gatica",
     "patient_uid": "1234",
+    "treatment_name": "idk",
     "clinic_location": "chiquimula"
 }
 ```
