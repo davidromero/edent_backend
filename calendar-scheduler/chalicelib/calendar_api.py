@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 
 import httplib2
 import pytz
+from chalicelib.custom_responses import make_response
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
@@ -53,21 +54,9 @@ def get_next_events(calendar):
                                           singleEvents=True, orderBy='startTime').execute()
     events = events_result.get('items', [])
     if not events:
-        logger.debug('No upcoming events found.')
+        logger.info('No upcoming events found.')
         return None
     else:
+        logger.info(make_response(events))
         return make_response(events)
 
-
-def make_response(event_list):
-    appointments = []
-    for event in event_list:
-        appointment = {
-            'id': event['id'],
-            'link': event['htmlLink'],
-            'title': event['summary'],
-            'start': event['start'],
-            'end': event['end'],
-        }
-        appointments.append(appointment)
-    return appointments
