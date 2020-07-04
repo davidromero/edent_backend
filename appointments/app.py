@@ -11,7 +11,5 @@ _DB = None
 
 @app.route('/appointments', methods=['GET'])
 def get_all_appointments():
-    params = app.current_request.query_params
-    print(params)
     appointment_list = calendar_api.get_next_events(CALENDAR_ID)
     return custom_responses.get_appointments_list(appointment_list)
