@@ -1,32 +1,59 @@
-import datetime
 import logging
+import os.path
+import pickle
+from datetime import datetime, timedelta
+
 import httplib2
+import pytz
+from google.auth.transport.requests import Request
+from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 
 SERVICE_ACCOUNT_FILE = 'chalicelib/credentials/edent-61d92-2e75249e0582.json'
+PICKLE_FILE = 'chalicelib/credentials/token.pickle'
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-logging.basicConfig()
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def get_google_calendar_service():
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+def use_gsuite_credentials():
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
-    delegated_credentials = credentials.create_delegated('agatica@kaleido.page')
+    delegated_credentials = credentials.create_delegated('agatica@kaleidoscopic.dev')
     delegated_http = delegated_credentials.authorize(httplib2.Http())
     service = build('calendar', 'v3', cache_discovery=False, http=delegated_http)
 
     return service
 
 
-def get_next_events(max_items, calendar):
-    service = get_google_calendar_service()
+def use_user_credentials():
+    creds = None
+    if os.path.exists(PICKLE_FILE):
+        with open(PICKLE_FILE, 'rb') as token:
+            creds = pickle.load(token)
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(PICKLE_FILE, SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open(PICKLE_FILE, 'wb') as token:
+            pickle.dump(creds, token)
 
-    now = datetime.datetime.utcnow().isoformat() + 'Z'
-    print(f'Getting the upcoming {max_items} events')
-    events_result = service.events().list(calendarId=calendar).execute()
+    service = build('calendar', 'v3', credentials=creds, cache_discovery=False)
+
+    return service
+
+
+def get_next_events(calendar):
+    service = use_user_credentials()
+    now = datetime.now(pytz.timezone('America/Guatemala')).replace(hour=0, minute=0)
+    tomorrow = now + timedelta(days=1)
+    logger.info(f'Retrieving events from {now.isoformat()}')
+    events_result = service.events().list(calendarId=calendar, timeMin=now.isoformat(),
+                                          timeMax=tomorrow.isoformat(), singleEvents=True,
+                                          orderBy='startTime').execute()
     events = events_result.get('items', [])
     if not events:
         logger.debug('No upcoming events found.')
@@ -47,26 +74,3 @@ def make_response(event_list):
         }
         appointments.append(appointment)
     return appointments
-
-
-def create_event(event_details):
-    service = get_google_calendar_service()
-    start_time = datetime.datetime.strptime(event_details['start_time'], '%Y-%m-%dT%H:%M:%S')
-    end_time = start_time + datetime.timedelta(minutes=int(event_details['duration']))
-    summary = f'{event_details["first_name"]} {event_details["last_name"]}'
-    description = f'{event_details["treatment_name"]}.\n {event_details["clinic_location"]}'
-    event = {
-        'summary': summary,
-        'description': description,
-        'start': {
-            'dateTime': event_details['start_time'],
-            'timeZone': 'America/Guatemala',
-        },
-        'end': {
-            'dateTime': end_time.strftime('%Y-%m-%dT%H:%M:%S'),
-            'timeZone': 'America/Guatemala',
-        }
-    }
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    print(event)
-    return event.get('htmlLink')
