@@ -7,8 +7,8 @@ import pytz
 from boto3.dynamodb.conditions import Attr
 from chalicelib.validation import validate_treatment_fields, all_fields
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 DEFAULT_USERNAME = 'local'
 EMPTY_FIELD = '-'
 
@@ -35,12 +35,12 @@ class DynamoDBTreatments(TreatmentsDB):
         self._table = table_resource
 
     def list_all_items(self, username=DEFAULT_USERNAME):
-        logger.debug('Listing all treatments')
+        logger.info('Listing all treatments')
         response = self._table.scan()
         return response['Items']
 
     def list_items_by_id(self, treatment_uid, username=DEFAULT_USERNAME):
-        logger.debug(f'Getting treatments from treatment {treatment_uid}')
+        logger.info(f'Getting treatments from treatment {treatment_uid}')
         response = self._table.scan(FilterExpression=Attr('patient_uid').eq(treatment_uid))
         if 'Items' in response:
             return response['Items']
@@ -48,11 +48,11 @@ class DynamoDBTreatments(TreatmentsDB):
         return None
 
     def add_item(self, treatment, username=DEFAULT_USERNAME):
-        logger.debug('Adding new treatment')
+        logger.info('Adding new treatment')
         uid = str(uuid4())[:13]
         new_treatment = make_treatment(treatment, username)
         if validate_treatment_fields(new_treatment):
-            logger.debug(f'Adding treatment: {json.dumps(new_treatment)}')
+            logger.info(f'Adding treatment: {json.dumps(new_treatment)}')
             self._table.put_item(
                 Item=new_treatment
             )
@@ -80,5 +80,5 @@ def make_treatment(treatment, username):
             new_treatment[key] = EMPTY_FIELD
         else:
             new_treatment[key] = value.lower().strip()
-    logger.debug("Making: " + json.dumps(new_treatment))
+    logger.info("Making: " + json.dumps(new_treatment))
     return new_treatment

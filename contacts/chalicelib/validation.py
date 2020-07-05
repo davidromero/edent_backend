@@ -1,8 +1,8 @@
 import logging
 import re
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+logger.setLevel(logging.ERROR)
 
 mandatory_fields = ['first_name', 'last_name', 'clinic_location', 'phone_number']
 available_locations = ['chiquimula', 'jocotan']

@@ -1,7 +1,7 @@
 import logging
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+logger.setLevel(logging.ERROR)
 
 mandatory_fields = ['first_name', 'last_name', 'patient_uid', 'clinic_location', 'treatment_type', 'treatment_name',
                     'treatment_price', 'treatment_uid']

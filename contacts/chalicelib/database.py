@@ -6,8 +6,8 @@ import pytz
 from boto3.dynamodb.conditions import Attr
 from chalicelib.validation import validate_contact_fields, all_fields, validate_update
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 DEFAULT_USERNAME = 'local'
 EMPTY_FIELD = '-'
 
@@ -34,20 +34,20 @@ class DynamoDBContacts(ContactsDB):
         self._table = table_resource
 
     def list_all_items(self, username=DEFAULT_USERNAME):
-        logger.debug('Listing all contacts')
+        logger.info('Listing all contacts')
         response = self._table.scan()
         return response['Items']
 
     def list_active_items(self, username=DEFAULT_USERNAME):
-        logger.debug('Listing active contacts')
+        logger.info('Listing active contacts')
         response = self._table.scan(FilterExpression=Attr('active').eq(True))
         return response['Items']
 
     def add_item(self, contact, username=DEFAULT_USERNAME):
-        logger.debug('Adding new contact')
+        logger.info('Adding new contact')
         new_contact = make_contact(contact, username)
         if validate_contact_fields(new_contact):
-            logger.debug(f'Adding contact: {json.dumps(new_contact)}')
+            logger.info(f'Adding contact: {json.dumps(new_contact)}')
             self._table.put_item(
                 Item=new_contact
             )
@@ -57,7 +57,7 @@ class DynamoDBContacts(ContactsDB):
             return None
 
     def get_item(self, uid, username=DEFAULT_USERNAME):
-        logger.debug(f'Getting contact {uid}')
+        logger.info(f'Getting contact {uid}')
         response = self._table.get_item(
             Key={'uid': uid, }
         )
@@ -67,7 +67,7 @@ class DynamoDBContacts(ContactsDB):
         return None
 
     def inactivate_item(self, uid, username=DEFAULT_USERNAME):
-        logger.debug(f'Inactivating contact {uid}')
+        logger.info(f'Inactivating contact {uid}')
         items = self._table.scan(FilterExpression=Attr('patient_uid').eq(uid))['Items']
         item = items[0]
         if item is not None:
@@ -82,7 +82,7 @@ class DynamoDBContacts(ContactsDB):
             return 404
 
     def update_item(self, uid, body, username=DEFAULT_USERNAME):
-        logger.debug(f'Updating contact {uid}')
+        logger.info(f'Updating contact {uid}')
         if validate_update(body):
             item = self.get_item(uid, username)
             if item is not None:
