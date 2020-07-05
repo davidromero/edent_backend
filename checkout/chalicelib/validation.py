@@ -1,7 +1,7 @@
 import logging
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+logger.setLevel(logging.ERROR)
 
 available_locations = ['chiquimula', 'jocotan']
 treatment_type = ['operatoria', 'endodoncia', 'cirugia', 'seguro']

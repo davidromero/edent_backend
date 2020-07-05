@@ -1,5 +1,4 @@
 import boto3 as boto3
-import logging
 from chalice import Chalice
 
 from chalicelib import database, custom_responses
@@ -7,7 +6,6 @@ from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION
 
 app = Chalice(app_name='checkout')
 
-app.log.setLevel(logging.DEBUG)
 _DB = None
 
 
