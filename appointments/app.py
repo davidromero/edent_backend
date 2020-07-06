@@ -1,11 +1,8 @@
-import logging
-
 from chalice import Chalice
 from chalicelib import custom_responses, calendar_api
 from chalicelib.config import CALENDAR_ID
 
 app = Chalice(app_name='appointments')
-app.log.setLevel(logging.DEBUG)
 _DB = None
 
 
