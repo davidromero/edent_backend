@@ -1,8 +1,8 @@
 import datetime
 import logging
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+logger.setLevel(logging.ERROR)
 
 mandatory_fields = ['first_name', 'last_name', 'sex', 'birthday', 'clinic_location', 'visit_reason', 'phone_number']
 available_locations = ['chiquimula', 'jocotan']

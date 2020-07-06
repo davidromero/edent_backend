@@ -2,7 +2,7 @@ import boto3 as boto3
 from chalice import Chalice
 
 from chalicelib import database, custom_responses
-from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION
+from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
 app = Chalice(app_name='contacts')
 _DB = None
@@ -25,20 +25,20 @@ def get_contact(uid):
     return custom_responses.get_response(response, uid)
 
 
-@app.route('/contacts', methods=['POST'])
+@app.route('/contacts', methods=['POST'], cors=cors_config)
 def add_new_contact():
     body = app.current_request.json_body
     new_item_id = get_app_db().add_item(contact=body)
     return custom_responses.post_response(new_item_id)
 
 
-@app.route('/contacts/{uid}', methods=['DELETE'])
+@app.route('/contacts/{uid}', methods=['DELETE'], cors=cors_config)
 def delete_contact(uid):
     response = get_app_db().inactivate_item(uid)
     return custom_responses.edit_response(response, uid)
 
 
-@app.route('/contacts/{uid}', methods=['PUT'])
+@app.route('/contacts/{uid}', methods=['PUT'], cors=cors_config)
 def update_contact(uid):
     body = app.current_request.json_body
     response = get_app_db().update_item(uid, body)

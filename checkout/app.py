@@ -1,13 +1,11 @@
 import boto3 as boto3
-import logging
 from chalice import Chalice
 
 from chalicelib import database, custom_responses
-from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION
+from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
 app = Chalice(app_name='checkout')
 
-app.log.setLevel(logging.DEBUG)
 _DB = None
 
 
@@ -22,14 +20,14 @@ def get_all_checkouts():
     return custom_responses.get_appointments_list(checkout_list)
 
 
-@app.route('/checkout', methods=['POST'])
+@app.route('/checkout', methods=['POST'], cors=cors_config)
 def checkout_treatments():
     body = app.current_request.json_body
     new_item_id = get_app_db().add_item(checkout=body)
     return custom_responses.post_response(new_item_id)
 
 
-@app.route('/checkout/{uid}', methods=['DELETE'])
+@app.route('/checkout/{uid}', methods=['DELETE'], cors=cors_config)
 def pay_checkout(uid):
     response = get_app_db().pay_item(uid)
     return custom_responses.edit_response(response, uid)

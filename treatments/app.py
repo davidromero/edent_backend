@@ -1,13 +1,10 @@
-import logging
-
 import boto3 as boto3
 from boto3.dynamodb.conditions import Attr
 from chalice import Chalice
 from chalicelib import database, custom_responses
-from chalicelib.config import RATES_TABLE_NAME, TABLE_NAME, AWS_DEFAULT_REGION
+from chalicelib.config import RATES_TABLE_NAME, TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
 app = Chalice(app_name='treatments')
-app.log.setLevel(logging.DEBUG)
 _DB = None
 
 
@@ -28,7 +25,7 @@ def get_treatment_by_id(uid):
     return custom_responses.get_response(response, uid)
 
 
-@app.route('/treatments', methods=['POST'])
+@app.route('/treatments', methods=['POST'], cors=cors_config)
 def add_new_treatments():
     body = app.current_request.json_body
     new_item_id = get_app_db().add_item(treatment=body)

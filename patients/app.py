@@ -3,7 +3,7 @@ import logging
 import boto3 as boto3
 from chalice import Chalice
 from chalicelib import database, custom_responses
-from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION
+from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
 app = Chalice(app_name='patients')
 app.log.setLevel(logging.DEBUG)
@@ -27,20 +27,20 @@ def get_patient(uid):
     return custom_responses.get_response(response, uid)
 
 
-@app.route('/patients', methods=['POST'])
+@app.route('/patients', methods=['POST'], cors=cors_config)
 def add_new_patient():
     body = app.current_request.json_body
     new_item_id = get_app_db().add_item(patient=body)
     return custom_responses.post_response(new_item_id)
 
 
-@app.route('/patients/{uid}', methods=['DELETE'])
+@app.route('/patients/{uid}', methods=['DELETE'], cors=cors_config)
 def delete_patient(uid):
     response = get_app_db().inactivate_item(uid)
     return custom_responses.edit_response(response, uid)
 
 
-@app.route('/patients/{uid}', methods=['PUT'])
+@app.route('/patients/{uid}', methods=['PUT'], cors=cors_config)
 def update_patient(uid):
     body = app.current_request.json_body
     response = get_app_db().update_item(uid, body)

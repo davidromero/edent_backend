@@ -8,8 +8,8 @@ import requests
 from boto3.dynamodb.conditions import Attr
 from chalicelib.validation import validate_checkout_fields, all_fields
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 DEFAULT_USERNAME = 'local'
 EMPTY_FIELD = '-'
 
@@ -36,17 +36,17 @@ class DynamoDBCheckout(CheckoutDB):
         self._table = table_resource
 
     def list_unpaid_items(self, username=DEFAULT_USERNAME):
-        logger.debug('Listing unpaid treatments in checkout')
+        logger.info('Listing unpaid treatments in checkout')
         response = self._table.scan(FilterExpression=Attr('paid').eq(False))
         return response['Items']
 
     def list_paid_items(self, username=DEFAULT_USERNAME):
-        logger.debug('Listing paid treatments in checkout')
+        logger.info('Listing paid treatments in checkout')
         response = self._table.scan(FilterExpression=Attr('paid').eq(True))
         return response['Items']
 
     def get_item(self, uid, username=DEFAULT_USERNAME):
-        logger.debug(f'Getting checkout {uid}')
+        logger.info(f'Getting checkout {uid}')
         response = self._table.get_item(
             Key={'uid': uid, }
         )
@@ -56,11 +56,11 @@ class DynamoDBCheckout(CheckoutDB):
         return None
 
     def add_item(self, checkout, username=DEFAULT_USERNAME):
-        logger.debug('Creating a new checkout')
+        logger.info('Creating a new checkout')
         new_checkout = make_checkout(checkout, username)
         if validate_checkout_fields(new_checkout):
             add_treatments(new_checkout, checkout)
-            logger.debug(f'Adding checkout: {json.dumps(new_checkout)}')
+            logger.info(f'Adding checkout: {json.dumps(new_checkout)}')
             self._table.put_item(
                 Item=new_checkout
             )
@@ -70,7 +70,7 @@ class DynamoDBCheckout(CheckoutDB):
             return None
 
     def pay_item(self, uid, username=DEFAULT_USERNAME):
-        logger.debug(f'Paying checkout treatment {uid}')
+        logger.info(f'Paying checkout treatment {uid}')
         item = self.get_item(uid, username)
         if item is not None:
             item['paid'] = True
@@ -105,9 +105,9 @@ def add_treatments(new_checkout, checkout):
                             data=json.dumps(payload),
                             headers={'Content-type': 'application/json', 'Accept': 'application/json'})
         if res.status_code is 201:
-            logger.debug('Treatment inserted')
+            logger.info('Treatment inserted')
         else:
-            logger.debug('Error' + res.text)
+            logger.info('Error' + res.text)
 
 
 def make_checkout(checkout, username):
@@ -133,5 +133,5 @@ def make_checkout(checkout, username):
                 new_checkout[key] = dict((k.lower(), v.lower()) for k, v in new_checkout[key].items())
             else:
                 new_checkout[key] = value.lower().strip()
-    logger.debug("Making: " + json.dumps(new_checkout))
+    logger.info("Making: " + json.dumps(new_checkout))
     return new_checkout
