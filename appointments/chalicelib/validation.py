@@ -4,8 +4,7 @@ import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 
-mandatory_fields = ['first_name', 'last_name', 'patient_uid', 'clinic_location', 'start_time']
-available_locations = ['chiquimula', 'jocotan']
+mandatory_fields = ['uid', 'link', 'title', 'description', 'start', 'end']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp']
 all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'start_time', 'duration', 'treatment_name']
 
