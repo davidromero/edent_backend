@@ -17,7 +17,7 @@ def index():
 
 @app.route('/patients', methods=['GET'])
 def get_all_patients():
-    active_patient_list = get_app_db().list_active_items()
+    active_patient_list = get_app_db().list_all_items()
     return custom_responses.get_active_patients(active_patient_list)
 
 
@@ -51,6 +51,6 @@ def get_app_db():
     global _DB
     if _DB is None:
         _DB = database.DynamoDBPatients(
-            boto3.Session().resource(service_name='dynamodb', region_name=AWS_DEFAULT_REGION).Table(TABLE_NAME)
+            boto3.Session().resource(service_name='dynamodb', region_name=AWS_DEFAULT_REGION).Table("edent_appointments_dev")
         )
     return _DB
