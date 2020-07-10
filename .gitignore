@@ -5,3 +5,10 @@
 */.chalice/deployments/
 */chalicelib/credentials/
 *.pyc
+appointments/chalicelib/__pycache__/
+calendar-scheduler/chalicelib/__pycache__/
+checkout/chalicelib/__pycache__/
+contacts/chalicelib/__pycache__/
+image-storage/chalicelib/__pycache__/
+patients/chalicelib/__pycache__/
+treatments/chalicelib/__pycache__/
