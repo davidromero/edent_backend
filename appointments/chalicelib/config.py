@@ -1,3 +1,10 @@
 from os import environ
 
-CALENDAR_ID = environ.get('CALENDAR_ID')
+from chalice import CORSConfig
+
+TABLE_NAME = environ.get('TABLE_NAME')
+AWS_DEFAULT_REGION = environ.get('AWS_DEFAULT_REGION')
+
+cors_config = CORSConfig(
+    allow_origin='*'
+)
