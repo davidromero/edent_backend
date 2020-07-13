@@ -1,6 +1,7 @@
 import datetime
 import json
 import logging
+from boto3.dynamodb.conditions import Attr
 
 import pytz
 
@@ -26,8 +27,11 @@ class DynamoDBAppointments(AppointmentsDB):
         self._table = table_resource
 
     def list_all_items(self, username=DEFAULT_USERNAME):
-        logger.info('Listing all patients')
-        response = self._table.scan()
+        start = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))[:10]
+        logger.info(f'Listing all patients of {start}')
+        response = self._table.scan(
+            FilterExpression=Attr('start').gte(start)
+        )
         return response['Items']
 
     def add_item(self, appointment, username=DEFAULT_USERNAME):
