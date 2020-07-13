@@ -1,3 +1,5 @@
+import json
+
 import boto3 as boto3
 from chalice import Chalice
 

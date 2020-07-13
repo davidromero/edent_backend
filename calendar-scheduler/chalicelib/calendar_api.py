@@ -48,6 +48,7 @@ def use_user_credentials():
 def get_next_events(calendar):
     service = use_user_credentials()
     now = datetime.now(pytz.timezone('America/Guatemala')).replace(hour=0, minute=0)
+    now = now + timedelta(days=1)
     tomorrow = now + timedelta(days=1)
     logger.info(f'Retrieving events from {now.isoformat()}')
     events_result = service.events().list(calendarId=calendar, timeMin=now.isoformat(), timeMax=tomorrow.isoformat(),

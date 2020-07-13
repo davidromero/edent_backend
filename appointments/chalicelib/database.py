@@ -1,22 +1,23 @@
 import datetime
 import json
 import logging
-from uuid import uuid4
 
 import pytz
-import requests
-from boto3.dynamodb.conditions import Attr
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 DEFAULT_USERNAME = 'local'
 EMPTY_FIELD = '-'
-from chalicelib.validation import validate_appointment_fields, validate_mandatory_fields, has_mandatory_fields, \
-    validate_datetime
 
 
 class AppointmentsDB(object):
     def list_items(self, username):
+        pass
+
+    def add_item(self, patient, username):
+        pass
+
+    def delete_item(self, uid, username):
         pass
 
 
@@ -30,8 +31,7 @@ class DynamoDBAppointments(AppointmentsDB):
         return response['Items']
 
     def add_item(self, appointment, username=DEFAULT_USERNAME):
-        uid = 33333
-        new_appointment = make_appointment(appointment, username, uid)
+        new_appointment = make_appointment(appointment, username)
         logger.info(f'Adding Appointment: {json.dumps(new_appointment)}')
         self._table.put_item(
             Item=new_appointment
@@ -39,25 +39,20 @@ class DynamoDBAppointments(AppointmentsDB):
         return new_appointment.get('uid')
 
 
-def make_appointment(appointment, username, uid):
+def make_appointment(appointment, username):
     now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
     new_appointment = {
-        'uid': '3gvcdf69e0ne03o1gla4f4444',
-        'link': 'google.com',
-        'title': 'Andrea Molina',
-        'description': 'Tel: 02030105',
-        'start': {
-            'dateTime': now
-        },
-        'end': {
-            'dateTime': now
-        },
-        'uid': uid,
-        'active': True,
+        'uid': appointment['id'],
+        'attended': False,
         'created_by': username,
         'modified_by': username,
         'created_timestamp': now,
         'modified_timestamp': now,
-        'contact_uid': uid,
+        'title': appointment['title'],
+        'link': appointment['link'],
+        'description': appointment['description'],
+        'start': appointment['start']['dateTime'],
+        'end': appointment['end']['dateTime'],
     }
+    logger.info("Making: " + json.dumps(new_appointment))
     return new_appointment

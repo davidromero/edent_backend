@@ -4,9 +4,9 @@ import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 
-mandatory_fields = ['uid', 'link', 'title', 'description', 'start', 'end']
+mandatory_fields = ['uid', 'title', 'link', 'description', 'start', 'end']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp']
-all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'start_time', 'duration', 'treatment_name']
+all_fields = ['uid', 'title', 'link', 'description', 'start', 'end']
 
 
 def validate_appointment_fields(new_appointment):
@@ -18,16 +18,11 @@ def validate_appointment_fields(new_appointment):
 
 
 def validate_mandatory_fields(appointment):
-    if len(appointment['first_name']) < 3 or len(appointment['first_name']) > 99:
-        logger.error('First name is invalid')
+    if len(appointment['title']) < 3 or len(appointment['title']) > 99:
+        logger.error('Title is invalid')
         return False
-    if len(appointment['last_name']) < 3 or len(appointment['last_name']) > 99:
-        logger.error('Last name is invalid')
-        return False
-    if appointment['clinic_location'] not in available_locations:
-        logger.error('Clinic location is invalid')
-        return False
-    if not validate_datetime(appointment['start_time']):
+    if len(appointment['description']) < 3 or len(appointment['description']) > 99:
+        logger.error('Description is invalid')
         return False
     return True
 
