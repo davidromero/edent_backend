@@ -34,17 +34,18 @@ class DynamoDBTreatments(TreatmentsDB):
     def __init__(self, table_resource):
         self._table = table_resource
 
-    def list_all_items(self, username=DEFAULT_USERNAME):
+    def list_all_items(self, pacientuid, username=DEFAULT_USERNAME):
         logger.info('Listing all treatments')
         response = self._table.scan()
         return response['Items']
 
-    def list_items_by_id(self, treatment_uid, username=DEFAULT_USERNAME):
-        logger.info(f'Getting treatments from treatment {treatment_uid}')
-        response = self._table.scan(FilterExpression=Attr('patient_uid').eq(treatment_uid))
-        if 'Items' in response:
+    def list_items_by_id(self, patient_uid, username=DEFAULT_USERNAME):
+        logger.info(f'Getting treatments from treatment {patient_uid}')
+        response = self._table.scan(FilterExpression=Attr('patient_uid').eq(patient_uid))
+        if response['Items']:
+            logger.info(f'response: {response}')
             return response['Items']
-        logger.error(f'Treatment {treatment_uid} not found')
+        logger.info(f'Treatment {patient_uid} not found')
         return None
 
     def add_item(self, treatment, username=DEFAULT_USERNAME):

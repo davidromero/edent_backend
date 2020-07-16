@@ -19,8 +19,11 @@ def get_all_treatments():
     return custom_responses.get_treatments_list(treatment_list)
 
 
+# TODO: Refactor, delete not used services ?
+
+# Get treatments per patientuid
 @app.route('/treatments/{uid}', methods=['GET'])
-def get_treatment_by_id(uid):
+def get_treatment_by_patient_uid(uid):
     response = get_app_db().list_items_by_id(uid)
     return custom_responses.get_response(response, uid)
 
