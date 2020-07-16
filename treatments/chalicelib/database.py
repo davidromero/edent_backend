@@ -34,7 +34,7 @@ class DynamoDBTreatments(TreatmentsDB):
     def __init__(self, table_resource):
         self._table = table_resource
 
-    def list_all_items(self, pacientuid, username=DEFAULT_USERNAME):
+    def list_all_items(self, username=DEFAULT_USERNAME):
         logger.info('Listing all treatments')
         response = self._table.scan()
         return response['Items']
