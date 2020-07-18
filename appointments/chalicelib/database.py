@@ -3,6 +3,7 @@ import json
 import logging
 
 import pytz
+from boto3.dynamodb.conditions import Attr
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -37,6 +38,12 @@ class DynamoDBAppointments(AppointmentsDB):
             Item=new_appointment
         )
         return new_appointment.get('uid')
+
+    def inactivate_item(self, uid):
+        logger.info(f'Inactivating appointment {uid}')
+        response = self._table.delete_item(Key={'uid': uid})
+        logger.info('repsonse is:' + json.dumps(response))
+        return response['ResponseMetadata']
 
 
 def make_appointment(appointment, username):
