@@ -1,5 +1,3 @@
-import json
-
 import boto3 as boto3
 from chalice import Chalice
 
@@ -22,10 +20,16 @@ def get_all_appointments():
 
 
 @app.route('/appointments', methods=['POST'], cors=cors_config)
-def add_new_patient():
+def add_new_appointment():
     body = app.current_request.json_body
     new_item_id = get_app_db().add_item(appointment=body)
     return custom_responses.post_response(new_item_id)
+
+
+@app.route('/appointments/{uid}', methods=['DELETE'], cors=cors_config)
+def delete_appointment(uid):
+    response = get_app_db().inactivate_item(uid)
+    return custom_responses.delete_response(response, uid)
 
 
 def get_app_db():
