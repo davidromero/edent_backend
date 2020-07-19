@@ -29,7 +29,10 @@ class DynamoDBAppointments(AppointmentsDB):
     def list_all_items(self, username=DEFAULT_USERNAME):
         logger.info('Listing all patients')
         response = self._table.scan()
-        return response['Items']
+        sorted_reponse = response['Items']
+        for key in sorted_reponse:
+            key['end_timestamp'] = key['end'].replace('-', '').replace(':', '').replace('T', '')
+        return sorted(sorted_reponse, key=lambda x: x['end_timestamp'])
 
     def add_item(self, appointment, username=DEFAULT_USERNAME):
         new_appointment = make_appointment(appointment, username)
