@@ -24,9 +24,6 @@ class CheckoutDB(object):
     def get_item(self, uid, username):
         pass
 
-    def delete_item(self, uid, username):
-        pass
-
     def update_item(self, uid, body, username):
         pass
 
@@ -69,20 +66,40 @@ class DynamoDBCheckout(CheckoutDB):
             logger.error('Checkout creation is not valid')
             return None
 
-    def pay_item(self, uid, username=DEFAULT_USERNAME):
-        logger.info(f'Paying checkout treatment {uid}')
+    def pay_item(self, uid, body, username=DEFAULT_USERNAME):
+        payment_amount = int(body['payment_amount'])
+        logger.info(f'Paying checkout treatment {uid} with {payment_amount}')
         item = self.get_item(uid, username)
         if item is not None:
-            item['paid'] = True
-            now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
-            item['modified_by'] = username
-            item['modified_timestamp'] = now
-            response = self._table.put_item(Item=item)
-            return response['ResponseMetadata']
+            paid_amount, paid = make_payment(payment_amount, item)
+            if paid_amount is None:
+                return 400
+            else:
+                now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
+                item['modified_by'] = username
+                item['modified_timestamp'] = now
+                item['paid_amount'] = paid_amount
+                item['paid'] = paid
+                response = self._table.put_item(Item=item)
+                return response['ResponseMetadata']
         else:
-            logger.error(f'Contact could not be inactivated')
+            logger.error(f'Checkout could not be payed')
             return 400
 
+
+def make_payment(payment_amount, checkout):
+    total = 0
+    checkout_list = checkout['checkout']
+    for treatment in checkout_list:
+        total += int(treatment['price'])
+    paid_amount = int(checkout['paid_amount'])
+    if payment_amount <= (total-paid_amount):
+        logger.info(f'New payment amount: {payment_amount}. Total: {total}')
+        paid_amount += payment_amount
+        return paid_amount, paid_amount == total
+    else:
+        logger.error(f'Not allowed amount: {payment_amount}. Total: {total}')
+        return None, None
 
 def add_treatments(new_checkout, checkout):
     uid = str(uuid4())[:13]
@@ -120,6 +137,7 @@ def make_checkout(checkout, username):
         'created_timestamp': now,
         'modified_timestamp': now,
         'paid': False,
+        'paid_amount': 0,
     }
     for key in all_fields:
         value = checkout.get(key, EMPTY_FIELD)
