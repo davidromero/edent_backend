@@ -4,13 +4,14 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.ERROR)
 
-mandatory_fields = ['first_name', 'last_name', 'sex', 'birthday', 'clinic_location', 'visit_reason', 'phone_number']
+mandatory_fields = ['first_name', 'last_name', 'sex', 'birthday', 'clinic_location', 'visit_reason', 'phone_number', 'doctor_names']
 available_locations = ['chiquimula', 'jocotan']
 genders = ['male', 'female']
+doctor_names = ['dra. hilda peralta', 'dra. rocio peralta']
 visit_reasons = ['operatoria', 'endodoncia', 'cirugia', 'seguro']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp', 'active']
 all_fields = ['first_name', 'last_name', 'birthday', 'sex', 'clinic_location', 'visit_reason', 'phone_number',
-              'address', 'email']
+              'address', 'email', 'doctor_names']
 
 
 def validate_patient_fields(new_patient):
@@ -37,6 +38,10 @@ def validate_mandatory_fields(patient):
     if patient['visit_reason'] not in visit_reasons:
         logger.error('Visit reason is invalid')
         return False
+    for doctor_name in patient['doctor_names']:
+        if doctor_name not in doctor_names:
+            logger.error(f'Doctor name is invalid: {doctor_name}')
+            return False
     if not validate_birthday(patient['birthday']):
         logger.error('Birthday is invalid')
         return False
@@ -56,7 +61,10 @@ def has_mandatory_fields(patient):
         if mandatory_key not in patient.keys():
             logger.error('Mandatory field missing: ' + mandatory_key)
             return False
-        mandatory_value = patient[mandatory_key].strip()
+        if isinstance(patient[mandatory_key], list):
+            mandatory_value = patient[mandatory_key]
+        else:
+            mandatory_value = patient[mandatory_key].strip()
         if mandatory_value == '-' or None:
             logger.error('Mandatory field is blank: ' + mandatory_key)
             return False
