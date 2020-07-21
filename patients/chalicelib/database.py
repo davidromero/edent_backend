@@ -174,6 +174,7 @@ def make_patient(patient, username, uid):
     for key in all_fields:
         value = patient.get(key, EMPTY_FIELD)
         if isinstance(value, list):
+            value = [each_string.lower() for each_string in value]
             new_patient[key] = value
         elif value is '':
             new_patient[key] = '-'

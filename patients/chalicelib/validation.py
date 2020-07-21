@@ -39,7 +39,7 @@ def validate_mandatory_fields(patient):
         logger.error('Visit reason is invalid')
         return False
     for doctor_name in patient['doctor_names']:
-        if doctor_name not in doctor_names:
+        if doctor_name.lower() not in doctor_names:
             logger.error(f'Doctor name is invalid: {doctor_name}')
             return False
     if not validate_birthday(patient['birthday']):
