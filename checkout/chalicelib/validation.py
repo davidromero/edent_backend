@@ -4,7 +4,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.ERROR)
 
 available_locations = ['chiquimula', 'jocotan']
-treatment_type = ['operatoria', 'endodoncia', 'cirugia', 'seguro']
+treatment_type = ['operatoria', 'endodoncia', 'cirugia', 'seguro', 'ortodoncia']
 all_fields = ['patient', 'treatment_type', 'checkout']
 
 

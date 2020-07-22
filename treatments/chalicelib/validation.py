@@ -6,7 +6,7 @@ logger.setLevel(logging.ERROR)
 mandatory_fields = ['first_name', 'last_name', 'patient_uid', 'clinic_location', 'treatment_type', 'treatment_name',
                     'treatment_price', 'treatment_uid']
 available_locations = ['chiquimula', 'jocotan']
-treatment_type = ['operatoria', 'endodoncia', 'cirugia', 'seguro']
+treatment_type = ['operatoria', 'endodoncia', 'cirugia', 'seguro', 'ortodoncia']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp']
 all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'treatment_type', 'treatment_name',
               'treatment_price', 'treatment_uid', 'checkout_uid']
