@@ -8,7 +8,7 @@ mandatory_fields = ['first_name', 'last_name', 'sex', 'birthday', 'clinic_locati
 available_locations = ['chiquimula', 'jocotan']
 genders = ['male', 'female']
 doctor_names = ['dra. hilda peralta', 'dra. rocio peralta']
-visit_reasons = ['operatoria', 'endodoncia', 'cirugia', 'seguro']
+visit_reasons = ['operatoria', 'ortodoncia', 'endodoncia', 'cirugia', 'seguro']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp', 'active']
 all_fields = ['first_name', 'last_name', 'birthday', 'sex', 'clinic_location', 'visit_reason', 'phone_number',
               'address', 'email', 'doctor_names']
