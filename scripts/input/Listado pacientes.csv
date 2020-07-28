@@ -1,41 +1,41 @@
-﻿id,first_name,last_name,clinic_location,visit_reason,sex,birthday,phone_number,email,address
-1,Ada,García,jocotan,operatoria,female,-,58890271,,
-2,Ada Luna,García,jocotan,operatoria,female,-,58890271,,
-3,Aida Victoria,Elligton,jocotan,operatoria,female,-,30143531,,
-4,Álvaro,Guerra Díaz,jocotan,operatoria,male,-,53244976,,
-5,Ana,Casasola Monroy,jocotan,operatoria,female,-,59092500,,
-6,Ana Gladis,Mendoza,jocotan,operatoria,female,-,30152576,,
-7,Ana María,Perez,jocotan,operatoria,female,-,31178367,,
-8,Andrea Isabel,Lopez Gutierrez,jocotan,operatoria,female,-,31072243,,
-9,Andrea Meliza,Recinos,jocotan,operatoria,female,-,55223898,,
-10,Andrea,Villeda,jocotan,operatoria,female,-,46287302,,
-11,Andrés,Sebastián,jocotan,operatoria,male,-,33206756,,
-12,Angelina,Raymundo,jocotan,operatoria,female,-,58191443,,
-13,Anny Anayte,Amador,jocotan,operatoria,female,-,45329140,,
-14,antonio,cardona,jocotan,operatoria,male,-,53433065,,
-15,antonio,garcía,jocotan,operatoria,male,-,40202803,,
-16,ashley,esquivel interiano,jocotan,operatoria,female,-,53433065,,
-17,astrid analy,suchite campos,jocotan,operatoria,female,-,45949262,,
-18,blanca maribel,ochoa guerra,jocotan,operatoria,female,-,58191413,,
-19,candida,nufio,jocotan,operatoria,female,-,50190928,,
-20,celeste rubi,quiszar garcía,jocotan,operatoria,female,-,53743179,,
-21,claudia,anton carrera,jocotan,operatoria,female,-,50094784,,
-22,claudia veronica,gonzalez,jocotan,operatoria,female,-,79465232,,
-23,cristel marcela,guerra villeda,jocotan,operatoria,female,-,49888567,,
-24,cristian,vargas,jocotan,operatoria,male,-,49409864,,
-25,cristina,garcía,jocotan,operatoria,female,-,57241000,,
-26,daisy lucila,diaz mendoza,jocotan,operatoria,female,-,59881907,,
-27,darling maritza,lugo,jocotan,operatoria,female,-,53743179,,
-28,deisy,carrera,jocotan,operatoria,female,-,32168327,,
-29,deisy veraly,ruiz,jocotan,operatoria,female,-,32059181,,
-30,delfina,garcía,jocotan,operatoria,female,-,46068452,,
-31,diego,nufio,jocotan,operatoria,male,-,45949262,,
-32,diego,villeda,jocotan,operatoria,male,-,40463020,,
-33,dixi odalis,gutierrez vasquez,jocotan,operatoria,female,-,47792759,,
-34,edilson,chun,jocotan,operatoria,male,-,48152056,,
-35,elder elly,mendez,jocotan,operatoria,male,-,30309610,,
-36,elder ronaldo,garcia castillo,jocotan,operatoria,male,-,30781001,,
-37,emilio jose,aroche,jocotan,operatoria,male,-,54529346,,
-38,emily gabriela,nufio,jocotan,operatoria,female,-,46068452,,
-39,erick omar,guerra,jocotan,operatoria,male,-,51250589,,
-40,estefany arely,guerra calderon,jocotan,operatoria,female,-,40434444,,
+﻿id,first_name,last_name,clinic_location,visit_reason,sex,birthday,phone_number,email,address,doctor_names
+1,Ada,García,jocotan,operatoria,female,2000-01-01,58890271,,,[]
+2,Ada Luna,García,jocotan,operatoria,female,2000-01-01,58890271,,,[]
+3,Aida Victoria,Elligton,jocotan,operatoria,female,2000-01-01,30143531,,,[]
+4,Álvaro,Guerra Díaz,jocotan,operatoria,male,2000-01-01,53244976,,,[]
+5,Ana,Casasola Monroy,jocotan,operatoria,female,2000-01-01,59092500,,,[]
+6,Ana Gladis,Mendoza,jocotan,operatoria,female,2000-01-01,30152576,,,[]
+7,Ana María,Perez,jocotan,operatoria,female,2000-01-01,31178367,,,[]
+8,Andrea Isabel,Lopez Gutierrez,jocotan,operatoria,female,2000-01-01,31072243,,,[]
+9,Andrea Meliza,Recinos,jocotan,operatoria,female,2000-01-01,55223898,,,[]
+10,Andrea,Villeda,jocotan,operatoria,female,2000-01-01,46287302,,,[]
+11,Andrés,Sebastián,jocotan,operatoria,male,2000-01-01,33206756,,,[]
+12,Angelina,Raymundo,jocotan,operatoria,female,2000-01-01,58191443,,,[]
+13,Anny Anayte,Amador,jocotan,operatoria,female,2000-01-01,45329140,,,[]
+14,antonio,cardona,jocotan,operatoria,male,2000-01-01,53433065,,,[]
+15,antonio,garcía,jocotan,operatoria,male,2000-01-01,40202803,,,[]
+16,ashley,esquivel interiano,jocotan,operatoria,female,2000-01-01,53433065,,,[]
+17,astrid analy,suchite campos,jocotan,operatoria,female,2000-01-01,45949262,,,[]
+18,blanca maribel,ochoa guerra,jocotan,operatoria,female,2000-01-01,58191413,,,[]
+19,candida,nufio,jocotan,operatoria,female,2000-01-01,50190928,,,[]
+20,celeste rubi,quiszar garcía,jocotan,operatoria,female,2000-01-01,53743179,,,[]
+21,claudia,anton carrera,jocotan,operatoria,female,2000-01-01,50094784,,,[]
+22,claudia veronica,gonzalez,jocotan,operatoria,female,2000-01-01,79465232,,,[]
+23,cristel marcela,guerra villeda,jocotan,operatoria,female,2000-01-01,49888567,,,[]
+24,cristian,vargas,jocotan,operatoria,male,2000-01-01,49409864,,,[]
+25,cristina,garcía,jocotan,operatoria,female,2000-01-01,57241000,,,[]
+26,daisy lucila,diaz mendoza,jocotan,operatoria,female,2000-01-01,59881907,,,[]
+27,darling maritza,lugo,jocotan,operatoria,female,2000-01-01,53743179,,,[]
+28,deisy,carrera,jocotan,operatoria,female,2000-01-01,32168327,,,[]
+29,deisy veraly,ruiz,jocotan,operatoria,female,2000-01-01,32059181,,,[]
+30,delfina,garcía,jocotan,operatoria,female,2000-01-01,46068452,,,[]
+31,diego,nufio,jocotan,operatoria,male,2000-01-01,45949262,,,[]
+32,diego,villeda,jocotan,operatoria,male,2000-01-01,40463020,,,[]
+33,dixi odalis,gutierrez vasquez,jocotan,operatoria,female,2000-01-01,47792759,,,[]
+34,edilson,chun,jocotan,operatoria,male,2000-01-01,48152056,,,[]
+35,elder elly,mendez,jocotan,operatoria,male,2000-01-01,30309610,,,[]
+36,elder ronaldo,garcia castillo,jocotan,operatoria,male,2000-01-01,30781001,,,[]
+37,emilio jose,aroche,jocotan,operatoria,male,2000-01-01,54529346,,,[]
+38,emily gabriela,nufio,jocotan,operatoria,female,2000-01-01,46068452,,,[]
+39,erick omar,guerra,jocotan,operatoria,male,2000-01-01,51250589,,,[]
+40,estefany arely,guerra calderon,jocotan,operatoria,female,2000-01-01,40434444,,,[]
