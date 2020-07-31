@@ -19,7 +19,10 @@ with open(FILE_PATH, 'r', encoding='utf-8') as csv_file:
             item_count = 0
             for key in headers:
                 if item_count > 0:
-                    body[key] = row[item_count]
+                    if key == 'doctor_names':
+                        body[key] = []
+                    else:
+                        body[key] = row[item_count]
                 item_count += 1
             line_count += 1
 

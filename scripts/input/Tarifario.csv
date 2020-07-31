@@ -11,7 +11,7 @@ o009,operatoria,exodoncia,niño leche,50
 o010,operatoria,exodoncia,adulto anteriores,150
 o011,operatoria,exodoncia,adulto superiores,200
 o012,operatoria,exodoncia,coidal superiores,300
-o013,operatoria,limpieza con detrartraje,,300
+o013,operatoria,limpieza con detartraje,,300
 o014,operatoria,blanqueamiento,,300
 o015,operatoria,casquitos,,300
 o016,operatoria,coronas,,1500
@@ -41,3 +41,37 @@ s003,seguro,amalgama,,100
 s004,seguro,recina,,110
 s005,seguro,exodoncia,leche,35
 s006,seguro,exodoncia,adulto,50
+r001,ortodoncia,colocación de brackets,metálicos superior,1600
+r002,ortodoncia,colocación de brackets,metálicos inferior,1500
+r003,ortodoncia,colocación de brackets,estáticos ,2250
+r004,ortodoncia,colocación de brackets,autoligado superior e inferior,4500
+r005,ortodoncia,colocación de brackets,linguales,6000
+r006,ortodoncia,colocación de brackets,invisalign,3200
+r007,ortodoncia,cita de control,metálicos,300
+r008,ortodoncia,cita de control,cerámicos o zafiro,400
+r009,ortodoncia,cita de control,invisalign,500
+r010,ortodoncia,cita de control,linguales,400
+r011,ortodoncia,cita de control,retenci�n,200
+r012,ortodoncia,cita de control,autoligado,400
+r013,ortodoncia,retenedor,fijo,300
+r014,ortodoncia,retenedor,termoformado,300
+r015,ortodoncia,retenedor,circunferencial,600
+r016,ortodoncia,mantenedores de espacios,,600
+r017,ortodoncia,expansores maxilares,,1000
+r018,ortodoncia,colocación 4x2,superior fase I,1000
+r019,ortodoncia,colocación 4x2,inferior fase I,1000
+r020,ortodoncia,arco facial,,1200
+r021,ortodoncia,mascara facial,,1200
+r022,ortodoncia,barra transpalatina con botón de nance,,800
+r023,ortodoncia,sistema erty gap III,,3000
+r024,ortodoncia,constrol de fase I,,250
+r025,ortodoncia,montaje de articulador,,600
+r026,ortodoncia,plano miorelajante completo,,2500
+r027,ortodoncia,mini plano miorelajante,,800
+r028,ortodoncia,guarda de reposicionamiento anterior,,1200
+r029,ortodoncia,evaluación,inicial,100
+r030,ortodoncia,remoción de brackets,,800
+r031,ortodoncia,reposición,bracket o tubo perdido,100
+r032,ortodoncia,reposición,bracket estético perdido,200
+r033,ortodoncia,diseño gingival,superior,1000
+r034,ortodoncia,diseño gingival,inferior,1000

@@ -99,7 +99,10 @@ class DynamoDBPatients(PatientsDB):
             item = self.get_item(uid, username)
             if item is not None:
                 for key in body.keys():
-                    item[key] = body[key].lower().strip()
+                    if isinstance(item[key], list):
+                        item[key] = body[key]
+                    else:
+                        item[key] = body[key].lower().strip()
                 res = update_contact(item['contact_uid'], body)
                 if res is not None:
                     if validate_patient_fields(item):
@@ -151,7 +154,7 @@ def inactivate_contact(uid):
 
 
 def update_contact(uid, body):
-    res = requests.put_('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts/' + uid,
+    res = requests.put('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts/' + uid,
                        data=json.dumps(body),
                        headers={'Content-type': 'application/json', 'Accept': 'application/json'})
     if res.status_code == 204:
