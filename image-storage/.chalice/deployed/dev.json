@@ -3,13 +3,13 @@
     {
       "name": "default-role",
       "resource_type": "iam_role",
-      "role_arn": "arn:aws:iam::817410595580:role/image-storage-dev",
-      "role_name": "image-storage-dev"
+      "role_arn": "arn:aws:iam::817410595580:role/edent-image-storage-dev",
+      "role_name": "edent-image-storage-dev"
     },
     {
       "name": "api_handler",
       "resource_type": "lambda_function",
-      "lambda_arn": "arn:aws:lambda:us-east-1:817410595580:function:image-storage-dev"
+      "lambda_arn": "arn:aws:lambda:us-east-1:817410595580:function:edent-image-storage-dev"
     },
     {
       "name": "rest_api",

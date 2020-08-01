@@ -3,18 +3,18 @@
     {
       "name": "default-role",
       "resource_type": "iam_role",
-      "role_arn": "arn:aws:iam::817410595580:role/calendar-scheduler-dev",
-      "role_name": "calendar-scheduler-dev"
+      "role_arn": "arn:aws:iam::817410595580:role/edent-calendar-scheduler-dev",
+      "role_name": "edent-calendar-scheduler-dev"
     },
     {
       "name": "get_all_appointments",
       "resource_type": "lambda_function",
-      "lambda_arn": "arn:aws:lambda:us-east-1:817410595580:function:calendar-scheduler-dev-get_all_appointments"
+      "lambda_arn": "arn:aws:lambda:us-east-1:817410595580:function:edent-calendar-scheduler-dev-get_all_appointments"
     },
     {
       "name": "get_all_appointments-event",
       "resource_type": "cloudwatch_event",
-      "rule_name": "calendar-scheduler-dev-get_all_appointments-event"
+      "rule_name": "edent-calendar-scheduler-dev-get_all_appointments-event"
     }
   ],
   "schema_version": "2.0",

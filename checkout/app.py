@@ -4,7 +4,7 @@ from chalice import Chalice
 from chalicelib import database, custom_responses
 from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
-app = Chalice(app_name='checkout')
+app = Chalice(app_name='edent-checkout')
 
 _DB = None
 

@@ -6,7 +6,7 @@ from chalicelib import custom_responses, calendar_api
 from chalicelib.config import CALENDAR_ID
 import logging
 
-app = Chalice(app_name='calendar-scheduler')
+app = Chalice(app_name='edent-calendar-scheduler')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 

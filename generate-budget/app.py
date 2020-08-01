@@ -7,7 +7,7 @@ from chalicelib import custom_responses
 from chalicelib.create_pdf import create_pdf
 from chalicelib.config import BUCKET_NAME, BUCKET_PREFIX, cors_config
 
-app = Chalice(app_name='generate-budget')
+app = Chalice(app_name='edent-generate-budget')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 

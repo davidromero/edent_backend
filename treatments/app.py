@@ -4,7 +4,7 @@ from chalice import Chalice
 from chalicelib import database, custom_responses
 from chalicelib.config import RATES_TABLE_NAME, TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
-app = Chalice(app_name='treatments')
+app = Chalice(app_name='edent-treatments')
 _DB = None
 
 

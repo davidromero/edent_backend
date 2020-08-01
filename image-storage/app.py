@@ -5,7 +5,7 @@ from chalice import Chalice
 from chalicelib import custom_responses
 from chalicelib.config import BUCKET_NAME, BUCKET_PREFIX, cors_config
 
-app = Chalice(app_name='image-storage')
+app = Chalice(app_name='edent-image-storage')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 

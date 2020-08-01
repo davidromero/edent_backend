@@ -3,13 +3,13 @@
     {
       "name": "default-role",
       "resource_type": "iam_role",
-      "role_arn": "arn:aws:iam::817410595580:role/contacts-dev",
-      "role_name": "contacts-dev"
+      "role_arn": "arn:aws:iam::817410595580:role/edent-contacts-dev",
+      "role_name": "edent-contacts-dev"
     },
     {
       "name": "api_handler",
       "resource_type": "lambda_function",
-      "lambda_arn": "arn:aws:lambda:us-east-1:817410595580:function:contacts-dev"
+      "lambda_arn": "arn:aws:lambda:us-east-1:817410595580:function:edent-contacts-dev"
     },
     {
       "name": "rest_api",
