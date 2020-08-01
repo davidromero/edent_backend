@@ -93,13 +93,14 @@ def make_payment(payment_amount, checkout):
     for treatment in checkout_list:
         total += int(treatment['price'])
     paid_amount = int(checkout['paid_amount'])
-    if payment_amount <= (total-paid_amount):
+    if payment_amount <= (total - paid_amount):
         logger.info(f'New payment amount: {payment_amount}. Total: {total}')
         paid_amount += payment_amount
         return paid_amount, paid_amount == total
     else:
         logger.error(f'Not allowed amount: {payment_amount}. Total: {total}')
         return None, None
+
 
 def add_treatments(new_checkout, checkout):
     uid = str(uuid4())[:13]
@@ -132,12 +133,15 @@ def make_checkout(checkout, username):
     now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
     new_checkout = {
         'uid': uid,
+        'patient_uid': checkout['patient_uid'],
         'created_by': username,
         'modified_by': username,
         'created_timestamp': now,
         'modified_timestamp': now,
         'paid': False,
         'paid_amount': 0,
+        'treatment_description': checkout['treatment_description'],
+        'next_treatment': checkout['next_treatment'],
     }
     for key in all_fields:
         value = checkout.get(key, EMPTY_FIELD)
