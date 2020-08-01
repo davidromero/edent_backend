@@ -20,7 +20,7 @@ def get_all_checkouts():
     return custom_responses.get_appointments_list(checkout_list)
 
 
-@app.route('/checkout', methods=['POST'], cors=cors_config)
+@app.route('/checkout', methods=['POST'], cors=cors_config, content_types=['application/json'])
 def checkout_treatments():
     body = app.current_request.json_body
     new_item_id = get_app_db().add_item(checkout=body)
