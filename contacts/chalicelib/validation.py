@@ -63,7 +63,7 @@ def has_mandatory_fields(contact):
 
 
 def validate_email(email):
-    if email is '-':
+    if email == '-' or None:
         return True
     if re.match(r'^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email, re.IGNORECASE):
         return True

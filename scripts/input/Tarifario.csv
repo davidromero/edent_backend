@@ -35,10 +35,10 @@ e003,endodoncia,evaluación de TCR,,150
 c001,cirugia,cordal,,500
 c002,cirugia,frenectomía,lengua,900
 c003,cirugia,frenectomía,frenillo,900
-s001,seguro,evaluación,,50
+s001,seguro,evaluación,seguro,50
 s002,seguro,limpieza,,75
-s003,seguro,amalgama,,100
-s004,seguro,recina,,110
+s003,seguro,amalgama,seguro,100
+s004,seguro,recina,seguro,110
 s005,seguro,exodoncia,leche,35
 s006,seguro,exodoncia,adulto,50
 r001,ortodoncia,colocación de brackets,metálicos superior,1600
