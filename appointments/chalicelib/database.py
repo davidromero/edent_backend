@@ -1,7 +1,6 @@
 import datetime
 import json
 import logging
-from boto3.dynamodb.conditions import Attr
 
 import pytz
 from boto3.dynamodb.conditions import Attr
@@ -28,16 +27,15 @@ class DynamoDBAppointments(AppointmentsDB):
         self._table = table_resource
 
     def list_all_items(self, username=DEFAULT_USERNAME):
-        start = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))[:10]
-        logger.info(f'Listing all patients of {start}')
+        logger.info(f'Listing all unattended appointments')
         response = self._table.scan(
-            FilterExpression=Attr('start').gte(start)
+            FilterExpression=Attr('attended').eq(False)
         )
         return response['Items']
 
     def add_item(self, appointment, username=DEFAULT_USERNAME):
         new_appointment = make_appointment(appointment, username)
-        logger.info(f'Adding Appointment: {json.dumps(new_appointment)}')
+        logger.info(f'Adding appointment: {json.dumps(new_appointment)}')
         self._table.put_item(
             Item=new_appointment
         )
@@ -46,7 +44,7 @@ class DynamoDBAppointments(AppointmentsDB):
     def inactivate_item(self, uid):
         logger.info(f'Inactivating appointment {uid}')
         response = self._table.delete_item(Key={'uid': uid})
-        logger.info('repsonse is:' + json.dumps(response))
+        logger.info('Response is:' + json.dumps(response))
         return response['ResponseMetadata']
 
 

@@ -25,6 +25,5 @@ rsa==4.0
 s3transfer==0.3.3
 six==1.15.0
 soupsieve==2.0.1
-typing==3.6.4
 uritemplate==3.0.1
 urllib3==1.25.9
