@@ -42,6 +42,30 @@ class DynamoDBCheckout(CheckoutDB):
         response = self._table.scan(FilterExpression=Attr('paid').eq(True))
         return response['Items']
 
+    def list_descr_by_id(self, patient_uid, username=DEFAULT_USERNAME):
+        logger.info(f'Getting checkout description {patient_uid}')
+        response = self._table.scan(FilterExpression=Attr('patient_uid').eq(patient_uid))
+        response_item = {}
+        response_list = []
+        for res in response['Items']:
+            for value in res.keys():
+                if value == 'treatment_description':
+                    response_item[value] = res.get(value)
+                elif value == 'next_treatment':
+                    response_item[value] = res.get(value)
+                    response_item['created_timestamp'] = res['created_timestamp']
+                    response_item['sorted_timestamp'] = res['created_timestamp']
+            response_list.append(response_item)
+            response_item = {}
+        logger.info(response_list)
+        if response_list:
+            for key in response_list:
+                key['sorted_timestamp'] = key['sorted_timestamp'].replace('-', '').replace(':', '').replace('T',
+                '').replace(' ', '')
+            return sorted(response_list, key=lambda x: x['sorted_timestamp'], reverse=True)
+        logger.error(f'Checkout Description for Patient {patient_uid} not found')
+        return None
+
     def get_item(self, uid, username=DEFAULT_USERNAME):
         logger.info(f'Getting checkout {uid}')
         response = self._table.get_item(

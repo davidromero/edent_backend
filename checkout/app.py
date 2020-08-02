@@ -20,6 +20,12 @@ def get_all_checkouts():
     return custom_responses.get_appointments_list(checkout_list)
 
 
+@app.route('/checkout_desc/{uid}', methods=['GET'])
+def get_description_patient(uid):
+    response = get_app_db().list_descr_by_id(uid)
+    return custom_responses.get_appointments_list(response)
+
+
 @app.route('/checkout', methods=['POST'], cors=cors_config, content_types=['application/json'])
 def checkout_treatments():
     body = app.current_request.json_body
