@@ -61,7 +61,7 @@ class DynamoDBCheckout(CheckoutDB):
         if response_list:
             for key in response_list:
                 key['sorted_timestamp'] = key['sorted_timestamp'].replace('-', '').replace(':', '').replace('T',
-                '').replace(' ', '')
+                                        '').replace(' ', '').replace('.', '')[:14]
             return sorted(response_list, key=lambda x: x['sorted_timestamp'], reverse=True)
         logger.error(f'Checkout Description for Patient {patient_uid} not found')
         return None

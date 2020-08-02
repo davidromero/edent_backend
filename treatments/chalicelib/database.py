@@ -44,7 +44,11 @@ class DynamoDBTreatments(TreatmentsDB):
         response = self._table.scan(FilterExpression=Attr('patient_uid').eq(patient_uid))
         if response['Items']:
             logger.info(f'response: {response}')
-            return response['Items']
+            sorted_reponse = response['Items']
+            for key in sorted_reponse:
+                key['modified_timestamp'] = key['modified_timestamp'].replace('-', '').replace(':', '').replace('T',
+                                            '').replace(' ', '').replace('.', '')[:14]
+            return sorted(sorted_reponse, key=lambda x: x['modified_timestamp'], reverse=True)
         logger.info(f'Treatment {patient_uid} not found')
         return None
 
