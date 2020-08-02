@@ -15,7 +15,10 @@ class AppointmentsDB(object):
     def list_items(self, username):
         pass
 
-    def add_item(self, patient, username):
+    def add_item(self, uid, username):
+        pass
+
+    def mark_attended(self, uid, username):
         pass
 
     def delete_item(self, uid, username):
@@ -40,6 +43,20 @@ class DynamoDBAppointments(AppointmentsDB):
             Item=new_appointment
         )
         return new_appointment.get('uid')
+
+    def mark_attended(self, uid, username=DEFAULT_USERNAME):
+        item = self._table.get_item(Key={'uid': uid})['Item']
+        if item is not None:
+            logger.error(f'Appointment {uid} marked as attended')
+            now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
+            item['modified_by'] = username
+            item['modified_timestamp'] = now
+            item['attended'] = True
+            response = self._table.put_item(Item=item)
+            return response['ResponseMetadata']
+        else:
+            logger.error(f'Appointment {uid} not found')
+            return 404
 
     def inactivate_item(self, uid):
         logger.info(f'Inactivating appointment {uid}')
