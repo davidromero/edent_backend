@@ -5,7 +5,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.ERROR)
 
 mandatory_fields = ['first_name', 'last_name', 'sex', 'birthday', 'clinic_location', 'visit_reason', 'phone_number', 'doctor_names']
-available_locations = ['chiquimula', 'jocotan']
+available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala']
 genders = ['male', 'female']
 doctor_names = ['dra. hilda peralta', 'dra. rocio peralta']
 visit_reasons = ['operatoria', 'ortodoncia', 'endodoncia', 'cirugia', 'seguro']
