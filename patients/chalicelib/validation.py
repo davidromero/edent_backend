@@ -7,7 +7,7 @@ logger.setLevel(logging.ERROR)
 mandatory_fields = ['first_name', 'last_name', 'sex', 'birthday', 'clinic_location', 'visit_reason', 'phone_number', 'doctor_names']
 available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala']
 genders = ['male', 'female']
-doctor_names = ['dra. hilda peralta', 'dra. rocio peralta']
+doctor_names = ['dra. hilda peralta', 'dra. rocio peralta', 'dr. @guatemala', 'dr. @amatitlan']
 visit_reasons = ['operatoria', 'ortodoncia', 'endodoncia', 'cirugia', 'seguro']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp', 'active']
 all_fields = ['first_name', 'last_name', 'birthday', 'sex', 'clinic_location', 'visit_reason', 'phone_number',
