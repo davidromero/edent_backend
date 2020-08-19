@@ -134,7 +134,8 @@ def make_contact(patient, username, uid):
         'clinic_location': patient['clinic_location'],
         'address': patient['address'],
         'email': patient['email'],
-        'phone_number': patient['phone_number']
+        'phone_number': patient['phone_number'],
+        'secondary_phone': patient['secondary_phone']
     }
     res = requests.post('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts',
                         data=json.dumps(new_contact),

@@ -164,6 +164,7 @@ def make_checkout(checkout, username):
         'modified_timestamp': now,
         'paid': False,
         'paid_amount': 0,
+        'doctor_name': checkout['doctor_name'],
         'treatment_description': checkout['treatment_description'],
         'next_treatment': checkout['next_treatment'],
     }
