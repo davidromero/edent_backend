@@ -56,14 +56,14 @@ r012,ortodoncia,cita de control,autoligado,400
 r013,ortodoncia,retenedor,fijo,300
 r014,ortodoncia,retenedor,termoformado,300
 r015,ortodoncia,retenedor,circunferencial,600
-r016,ortodoncia,mantenedores de espacios,,600
-r017,ortodoncia,expansores maxilares,,1000
+r016,aparatos funcionales,mantenedores de espacios,,600
+r017,aparatos funcionales,expansores maxilares,,1000
 r018,ortodoncia,colocación 4x2,superior fase I,1000
 r019,ortodoncia,colocación 4x2,inferior fase I,1000
 r020,ortodoncia,arco facial,,1200
-r021,ortodoncia,mascara facial,,1200
-r022,ortodoncia,barra transpalatina con botón de nance,,800
-r023,ortodoncia,sistema erty gap III,,3000
+r021,aparatos funcionales,mascara facial,,1200
+r022,aparatos funcionales,barra transpalatina con botón de nance,,800
+r023,aparatos funcionales,sistema erty gap III,,3000
 r024,ortodoncia,constrol de fase I,,250
 r025,ortodoncia,montaje de articulador,,600
 r026,ortodoncia,plano miorelajante completo,,2500
