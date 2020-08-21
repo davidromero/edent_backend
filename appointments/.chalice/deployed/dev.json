@@ -3,13 +3,13 @@
     {
       "name": "default-role",
       "resource_type": "iam_role",
-      "role_arn": "arn:aws:iam::817410595580:role/appointments-dev",
-      "role_name": "appointments-dev"
+      "role_arn": "arn:aws:iam::817410595580:role/edent-appointments-dev",
+      "role_name": "edent-appointments-dev"
     },
     {
       "name": "api_handler",
       "resource_type": "lambda_function",
-      "lambda_arn": "arn:aws:lambda:us-east-1:817410595580:function:appointments-dev"
+      "lambda_arn": "arn:aws:lambda:us-east-1:817410595580:function:edent-appointments-dev"
     },
     {
       "name": "rest_api",

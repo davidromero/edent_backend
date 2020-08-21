@@ -4,7 +4,7 @@ from chalice import Chalice
 from chalicelib import database, custom_responses
 from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
-app = Chalice(app_name='appointments')
+app = Chalice(app_name='edent-appointments')
 _DB = None
 
 
@@ -26,10 +26,18 @@ def add_new_appointment():
     return custom_responses.post_response(new_item_id)
 
 
+@app.route('/appointments/{uid}', methods=['PUT'], cors=cors_config)
+def mark_attended(uid):
+    response = get_app_db().mark_attended(uid)
+    return custom_responses.edit_response(response, uid)
+
+
 @app.route('/appointments/{uid}', methods=['DELETE'], cors=cors_config)
 def delete_appointment(uid):
     response = get_app_db().inactivate_item(uid)
     return custom_responses.delete_response(response, uid)
+
+
 
 
 def get_app_db():

@@ -5,9 +5,9 @@ logger = logging.getLogger()
 logger.setLevel(logging.ERROR)
 
 mandatory_fields = ['first_name', 'last_name', 'clinic_location', 'phone_number']
-available_locations = ['chiquimula', 'jocotan']
+available_locations = ['chiquimula', 'jocotan', 'amatitlan', 'guatemala']
 non_editables = ['uid', 'created_by', 'created_timestamp', 'modified_by', 'modified_timestamp', 'active']
-all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'address', 'email', 'phone_number']
+all_fields = ['patient_uid', 'first_name', 'last_name', 'clinic_location', 'address', 'email', 'phone_number', 'secondary_phone']
 
 
 def validate_contact_fields(new_contact):
@@ -63,7 +63,7 @@ def has_mandatory_fields(contact):
 
 
 def validate_email(email):
-    if email is '-':
+    if email == '-' or None:
         return True
     if re.match(r'^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email, re.IGNORECASE):
         return True

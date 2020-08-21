@@ -4,7 +4,7 @@ from chalice import Chalice
 from chalicelib import database, custom_responses
 from chalicelib.config import RATES_TABLE_NAME, TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
-app = Chalice(app_name='treatments')
+app = Chalice(app_name='edent-treatments')
 _DB = None
 
 
@@ -40,7 +40,10 @@ def get_treatment_rates():
     params = app.current_request.query_params
     dynamodb = boto3.resource('dynamodb', region_name=AWS_DEFAULT_REGION)
     table = dynamodb.Table(RATES_TABLE_NAME)
-    response = table.scan(FilterExpression=Attr('type').eq(params['type']))
+    if params:
+        response = table.scan(FilterExpression=Attr('type').eq(params['type']))
+    else:
+        response = table.scan()
     return custom_responses.get_treatment_rates(response['Items'])
 
 

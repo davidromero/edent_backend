@@ -99,7 +99,10 @@ class DynamoDBPatients(PatientsDB):
             item = self.get_item(uid, username)
             if item is not None:
                 for key in body.keys():
-                    item[key] = body[key].lower().strip()
+                    if isinstance(item[key], list):
+                        item[key] = body[key]
+                    else:
+                        item[key] = body[key].lower().strip()
                 res = update_contact(item['contact_uid'], body)
                 if res is not None:
                     if validate_patient_fields(item):
@@ -131,12 +134,13 @@ def make_contact(patient, username, uid):
         'clinic_location': patient['clinic_location'],
         'address': patient['address'],
         'email': patient['email'],
-        'phone_number': patient['phone_number']
+        'phone_number': patient['phone_number'],
+        'secondary_phone': patient['secondary_phone']
     }
     res = requests.post('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts',
                         data=json.dumps(new_contact),
                         headers={'Content-type': 'application/json', 'Accept': 'application/json'})
-    if res.status_code is 201:
+    if res.status_code == 201:
         return res.json()
     else:
         return None
@@ -144,7 +148,7 @@ def make_contact(patient, username, uid):
 
 def inactivate_contact(uid):
     res = requests.delete('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts/' + uid)
-    if res.status_code is 204:
+    if res.status_code == 204:
         return res
     else:
         return None
@@ -154,7 +158,7 @@ def update_contact(uid, body):
     res = requests.put('https://9jtkflgqhe.execute-api.us-east-1.amazonaws.com/api/contacts/' + uid,
                        data=json.dumps(body),
                        headers={'Content-type': 'application/json', 'Accept': 'application/json'})
-    if res.status_code is 204:
+    if res.status_code == 204:
         return res
     else:
         return None
@@ -174,8 +178,9 @@ def make_patient(patient, username, uid):
     for key in all_fields:
         value = patient.get(key, EMPTY_FIELD)
         if isinstance(value, list):
+            value = [each_string.lower() for each_string in value]
             new_patient[key] = value
-        elif value is '':
+        elif value == '':
             new_patient[key] = '-'
         else:
             new_patient[key] = value.lower().strip()

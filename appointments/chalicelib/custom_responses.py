@@ -119,3 +119,38 @@ def delete_fail(uid):
         },
         headers=response_headers
     )
+
+def edit_response(response, uid):
+    if isinstance(response, int):
+        if response == 404:
+            return not_found(uid)
+        elif response == 400:
+            return edit_fail(uid)
+    else:
+        if response['HTTPStatusCode'] == 200:
+            return edit_success(uid)
+    return edit_fail(uid)
+
+
+def edit_success(uid):
+    message = '{} was correctly edited'.format(uid)
+    return Response(
+        status_code=204,
+        body={
+            'status': 204,
+            'payload': message
+        },
+        headers=response_headers
+    )
+
+
+def edit_fail(uid):
+    message = '{} failed to edit'.format(uid)
+    return Response(
+        status_code=400,
+        body={
+            'status': 400,
+            'payload': message
+        },
+        headers=response_headers
+    )

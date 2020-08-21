@@ -5,7 +5,7 @@ from chalice import Chalice
 from chalicelib import database, custom_responses
 from chalicelib.config import TABLE_NAME, AWS_DEFAULT_REGION, cors_config
 
-app = Chalice(app_name='patients')
+app = Chalice(app_name='edent-patients')
 app.log.setLevel(logging.DEBUG)
 _DB = None
 
@@ -51,6 +51,6 @@ def get_app_db():
     global _DB
     if _DB is None:
         _DB = database.DynamoDBPatients(
-            boto3.Session().resource(service_name='dynamodb', region_name=AWS_DEFAULT_REGION).Table("edent_appointments_dev")
+            boto3.Session().resource(service_name='dynamodb', region_name=AWS_DEFAULT_REGION).Table(TABLE_NAME)
         )
     return _DB

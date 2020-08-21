@@ -24,9 +24,6 @@ class CheckoutDB(object):
     def get_item(self, uid, username):
         pass
 
-    def delete_item(self, uid, username):
-        pass
-
     def update_item(self, uid, body, username):
         pass
 
@@ -44,6 +41,30 @@ class DynamoDBCheckout(CheckoutDB):
         logger.info('Listing paid treatments in checkout')
         response = self._table.scan(FilterExpression=Attr('paid').eq(True))
         return response['Items']
+
+    def list_descr_by_id(self, patient_uid, username=DEFAULT_USERNAME):
+        logger.info(f'Getting checkout description {patient_uid}')
+        response = self._table.scan(FilterExpression=Attr('patient_uid').eq(patient_uid))
+        response_item = {}
+        response_list = []
+        for res in response['Items']:
+            for value in res.keys():
+                if value == 'treatment_description':
+                    response_item[value] = res.get(value)
+                elif value == 'next_treatment':
+                    response_item[value] = res.get(value)
+                    response_item['created_timestamp'] = res['created_timestamp']
+                    response_item['sorted_timestamp'] = res['created_timestamp']
+            response_list.append(response_item)
+            response_item = {}
+        logger.info(response_list)
+        if response_list:
+            for key in response_list:
+                key['sorted_timestamp'] = key['sorted_timestamp'].replace('-', '').replace(':', '').replace('T',
+                                        '').replace(' ', '').replace('.', '')[:14]
+            return sorted(response_list, key=lambda x: x['sorted_timestamp'], reverse=True)
+        logger.error(f'Checkout Description for Patient {patient_uid} not found')
+        return None
 
     def get_item(self, uid, username=DEFAULT_USERNAME):
         logger.info(f'Getting checkout {uid}')
@@ -69,19 +90,40 @@ class DynamoDBCheckout(CheckoutDB):
             logger.error('Checkout creation is not valid')
             return None
 
-    def pay_item(self, uid, username=DEFAULT_USERNAME):
-        logger.info(f'Paying checkout treatment {uid}')
+    def pay_item(self, uid, body, username=DEFAULT_USERNAME):
+        payment_amount = int(body['payment_amount'])
+        logger.info(f'Paying checkout treatment {uid} with {payment_amount}')
         item = self.get_item(uid, username)
         if item is not None:
-            item['paid'] = True
-            now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
-            item['modified_by'] = username
-            item['modified_timestamp'] = now
-            response = self._table.put_item(Item=item)
-            return response['ResponseMetadata']
+            paid_amount, paid = make_payment(payment_amount, item)
+            if paid_amount is None:
+                return 400
+            else:
+                now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
+                item['modified_by'] = username
+                item['modified_timestamp'] = now
+                item['paid_amount'] = paid_amount
+                item['paid'] = paid
+                response = self._table.put_item(Item=item)
+                return response['ResponseMetadata']
         else:
-            logger.error(f'Contact could not be inactivated')
+            logger.error(f'Checkout could not be payed')
             return 400
+
+
+def make_payment(payment_amount, checkout):
+    total = 0
+    checkout_list = checkout['checkout']
+    for treatment in checkout_list:
+        total += int(treatment['price'])
+    paid_amount = int(checkout['paid_amount'])
+    if payment_amount <= (total - paid_amount):
+        logger.info(f'New payment amount: {payment_amount}. Total: {total}')
+        paid_amount += payment_amount
+        return paid_amount, paid_amount == total
+    else:
+        logger.error(f'Not allowed amount: {payment_amount}. Total: {total}')
+        return None, None
 
 
 def add_treatments(new_checkout, checkout):
@@ -115,11 +157,16 @@ def make_checkout(checkout, username):
     now = str(datetime.datetime.now(pytz.timezone('America/Guatemala')))
     new_checkout = {
         'uid': uid,
+        'patient_uid': checkout['patient_uid'],
         'created_by': username,
         'modified_by': username,
         'created_timestamp': now,
         'modified_timestamp': now,
         'paid': False,
+        'paid_amount': 0,
+        'doctor_name': checkout['doctor_name'],
+        'treatment_description': checkout['treatment_description'],
+        'next_treatment': checkout['next_treatment'],
     }
     for key in all_fields:
         value = checkout.get(key, EMPTY_FIELD)
